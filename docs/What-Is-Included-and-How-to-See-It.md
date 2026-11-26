@@ -71,6 +71,7 @@ Ran on 26 Nov 2026 with `scripts/showcase.py` – only reads, no previews and no
 | Bulk members (read-only part) | Address and serviceability explained with the quote's numbers | Answered |
 | Progress tracker | Latest background job | No job yet (expected – nothing has been run) |
 
+Real screenshots of these screens: [`docs/Showcase-with-Screens`](Showcase-with-Screens.md).
 The full report with every answer and rendered card: [`docs/showcase/esm264-showcase.md`](showcase/esm264-showcase.md).
 **Note:** the deployed price explanation counted only the first 200 lines and 50 promotions of this very large quote; the figures above are the correct whole-quote numbers. This was fixed and deployed afterwards (with your approval); the tool now reports these whole-quote figures.
 

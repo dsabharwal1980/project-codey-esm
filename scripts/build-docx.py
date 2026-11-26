@@ -2,7 +2,7 @@
 """Converts docs/*.md (headings, paragraphs, lists, tables, code blocks, bold/code inline) to .docx. Usage: python3 scripts/build-docx.py [file.md ...]"""
 import os, re, sys
 from docx import Document
-from docx.shared import Pt, RGBColor, Cm
+from docx.shared import Pt, RGBColor, Cm, Inches
 from docx.enum.table import WD_TABLE_ALIGNMENT
 from docx.oxml.ns import qn
 from docx.oxml import OxmlElement
@@ -49,6 +49,13 @@ def convert(md_path, out_path):
                     inline(cell.paragraphs[0], row[ci] if ci < len(row) else '', size=8.5, bold=(ri == 0))
                     if ri == 0: shade(cell, 'DCE8F7')
             doc.add_paragraph(); continue
+        im = re.match(r'^!\[([^\]]*)\]\(([^)]+)\)', ln.strip())
+        if im:
+            img = os.path.normpath(os.path.join(os.path.dirname(md_path), im.group(2)))
+            if os.path.exists(img):
+                doc.add_picture(img, width=Inches(6.3))
+                cap = doc.add_paragraph(); r = cap.add_run(im.group(1)); r.italic = True; r.font.size = Pt(8.5)
+            i += 1; continue
         m = re.match(r'^(#{1,4})\s+(.*)', ln)
         if m:
             h = doc.add_heading(level=min(len(m.group(1)), 3) if len(m.group(1)) > 1 else 0)

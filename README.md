@@ -41,6 +41,7 @@ Then connect your AI surface – see [adapters/README.md](adapters/README.md) �
 | Document | |
 |---|---|
 | **[What is included and how to see it](docs/What-Is-Included-and-How-to-See-It.md)** (also .docx) | start here – the 8 skills in plain words, 5 ways to see their output, read-only showcase results |
+| [What it looks like – real screens](docs/Showcase-with-Screens.md) (also .docx) | screenshots from esm264: Codey Setup cards, Change Log, secure key form, Coworker conversations |
 | [Cross-Org Deployment & Usage Guide](docs/Cross-Org-Deployment-and-Usage-Guide.md) | prerequisites, deploy, connect surfaces, tune packs, verify, operate, troubleshoot, rollback |
 | [Release notes](docs/release-notes.md) | what's new for customers |
 | [Setup help page with sample requests](docs/setup-help.md) | for end users |
