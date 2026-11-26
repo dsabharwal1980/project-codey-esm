@@ -30,6 +30,7 @@ bash scripts/deploy.sh <org-alias> --check-only      # validate
 bash scripts/deploy.sh <org-alias> [--with-coworker] # deploy core, HXL cards, MCP server, agent
 bash scripts/assign-perms.sh <org-alias> you@company.com admin
 bash scripts/smoke-test.sh <org-alias> <enterprise-quote-id>
+python3 scripts/showcase.py <org-alias>            # read-only report of every skill → docs/showcase/
 ```
 Then connect your AI surface – see [adapters/README.md](adapters/README.md) – and ask *"Check if my ESM setup is correct."*
 
@@ -39,6 +40,7 @@ Then connect your AI surface – see [adapters/README.md](adapters/README.md) �
 ## Documents
 | Document | |
 |---|---|
+| **[What is included and how to see it](docs/What-Is-Included-and-How-to-See-It.md)** (also .docx) | start here – the 8 skills in plain words, 5 ways to see their output, read-only showcase results |
 | [Cross-Org Deployment & Usage Guide](docs/Cross-Org-Deployment-and-Usage-Guide.md) | prerequisites, deploy, connect surfaces, tune packs, verify, operate, troubleshoot, rollback |
 | [Release notes](docs/release-notes.md) | what's new for customers |
 | [Setup help page with sample requests](docs/setup-help.md) | for end users |

@@ -217,8 +217,20 @@ public with sharing class CodeyPricePreviewTool {
             Map<String, Object> s = (Map<String, Object>) o;
             if (s.get('promotionId') != null && promoNames.containsKey(String.valueOf(s.get('promotionId')).left(15))) s.put('text', 'Promotion ' + promoNames.get(String.valueOf(s.get('promotionId')).left(15)) + ': ' + s.get('text'));
         }
+        // Totals and counts always cover the WHOLE quote; the line-by-line detail above is capped at 200 lines for readability.
+        Integer totalLines = [SELECT COUNT() FROM QuoteLineItem WHERE QuoteId = :quoteId];
+        if (totalLines > lines.size()) {
+            AggregateResult ar = [SELECT SUM(vlocity_cmt__EffectiveOneTimeTotal__c) eo, SUM(vlocity_cmt__EffectiveRecurringTotal__c) er,
+                                  SUM(vlocity_cmt__OneTimeTotal__c) o, SUM(vlocity_cmt__RecurringTotal__c) r
+                                  FROM QuoteLineItem WHERE QuoteId = :quoteId AND vlocity_cmt__ParentItemId__c = null];
+            oneTime = ar.get('eo') != null ? (Decimal) ar.get('eo') : nz((Decimal) ar.get('o'));
+            recurring = ar.get('er') != null ? (Decimal) ar.get('er') : nz((Decimal) ar.get('r'));
+        }
+        Integer promoCount = [SELECT COUNT() FROM vlocity_cmt__QuoteAppliedPromotion__c WHERE vlocity_cmt__QuoteId__c = :quoteId];
+        Integer discountCount = [SELECT COUNT() FROM vlocity_cmt__QuoteDiscount__c WHERE vlocity_cmt__QuoteId__c = :quoteId];
         return new Map<String, Object>{ 'quoteId' => q.Id, 'quoteName' => q.Name, 'lines' => rows, 'promotions' => promos, 'discounts' => discounts,
-            'totals' => new Map<String, Object>{ 'oneTime' => oneTime, 'recurring' => recurring, 'lines' => rows.size() }, 'planSteps' => planSteps() };
+            'totals' => new Map<String, Object>{ 'oneTime' => oneTime, 'recurring' => recurring, 'lines' => totalLines, 'linesShown' => rows.size(),
+                'promotions' => promoCount, 'discounts' => discountCount }, 'planSteps' => planSteps() };
     }
 
     static Map<String, Object> logData(String raw) {
@@ -274,8 +286,10 @@ public with sharing class CodeyPricePreviewTool {
 
     static String summary(Map<String, Object> priced, Map<String, Object> before) {
         Map<String, Object> t = (Map<String, Object>) priced.get('totals');
-        String s = 'Priced ' + t.get('lines') + ' lines: one-time ' + CodeyCore.money((Decimal) t.get('oneTime')) + ', recurring ' + CodeyCore.money((Decimal) t.get('recurring')) + ' per month; '
-            + ((List<Object>) priced.get('promotions')).size() + ' promotions, ' + ((List<Object>) priced.get('discounts')).size() + ' discounts.';
+        Integer shown = t.get('linesShown') == null ? null : (Integer) t.get('linesShown');
+        String s = 'Priced ' + t.get('lines') + ' lines' + (shown != null && shown < (Integer) t.get('lines') ? ' (step detail for the first ' + shown + ')' : '')
+            + ': one-time ' + CodeyCore.money((Decimal) t.get('oneTime')) + ', recurring ' + CodeyCore.money((Decimal) t.get('recurring')) + ' per month; '
+            + count(t, 'promotions', priced) + ' promotions, ' + count(t, 'discounts', priced) + ' discounts.';
         if (before != null) {
             Map<String, Object> b = (Map<String, Object>) before.get('totals');
             s += ' Before the proposed step: one-time ' + CodeyCore.money((Decimal) b.get('oneTime')) + ', recurring ' + CodeyCore.money((Decimal) b.get('recurring')) + ' (simulated; a cached pricing plan may only show the new step after the change and the pricing admin jobs).';
@@ -301,7 +315,7 @@ public with sharing class CodeyPricePreviewTool {
         }
         Map<String, Object> t = (Map<String, Object>) priced.get('totals');
         CodeyCard card = CodeyCards.approval(token == null ? 'Price breakdown' : 'Price preview (not saved)', 'Recurring ' + CodeyCore.money((Decimal) t.get('recurring')) + '/mo · one-time ' + CodeyCore.money((Decimal) t.get('oneTime')), ch, token,
-            ((List<Object>) priced.get('promotions')).size() + ' promotions, ' + ((List<Object>) priced.get('discounts')).size() + ' discounts applied.');
+            count(t, 'promotions', priced) + ' promotions, ' + count(t, 'discounts', priced) + ' discounts applied' + (t.get('linesShown') != null && (Integer) t.get('linesShown') < (Integer) t.get('lines') ? '; totals cover all ' + t.get('lines') + ' lines.' : '.'));
         card.cardType = 'price';
         card.badgeLabel = token == null ? 'Read only' : 'Not saved';
         card.badgeVariant = 'info';
@@ -315,6 +329,9 @@ public with sharing class CodeyPricePreviewTool {
     }
 
     static String seq(Object o) { if (o == null) return '-'; Decimal d = Decimal.valueOf(String.valueOf(o)); return d == d.round() ? String.valueOf(d.intValue()) : String.valueOf(d.stripTrailingZeros()); }
+    static Integer count(Map<String, Object> totals, String key, Map<String, Object> priced) {
+        return totals.get(key) != null ? (Integer) totals.get(key) : ((List<Object>) priced.get(key)).size();
+    }
     static String fmt(Object o) { return o == null ? '0.00' : CodeyCore.money(Decimal.valueOf(String.valueOf(o))); }
     static Decimal nz(Decimal d) { return d == null ? 0 : d; }
 

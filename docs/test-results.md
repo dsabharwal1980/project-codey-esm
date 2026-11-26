@@ -19,7 +19,7 @@ preview leaves no quote behind (count before = after); secrets are refused by ap
 | 2 | `get_codey_playbook concept:quote-member-vs-line-item` + quote | Answer with real data: 170 members, 0 groups, 1,020 lines (all member-level), 0 orders |
 | 3 | `check_esm_upgrade_impact` (release 268, seed list) | 556 customized ESM/CPQ components scanned, 74 matched (11 High, 24 Medium); flagged as seed list |
 | 4 | `preview_esm_price explainPlan=true` | 12 pricing plan steps in order (DEFAULT_PRICING_PLAN) |
-| 5 | `preview_esm_price quoteId=<170-site quote>` | 200 lines, one-time 17,000, recurring 3,060/month, 8 promotions, 1 discount – read only |
+| 5 | `preview_esm_price quoteId=<170-site quote>` | read only; deployed version reported "200 lines, 17,000 / 3,060" because totals were built from the first 200 lines – whole quote is 1,020 lines, 85,000 one-time, 15,300/month, 8 promotions, 1 discount. Fixed in the repository (totals/counts over the whole quote), validated, not yet deployed |
 | 6 | `preview_esm_price products=VEPC_OFFERING_PUBLIC_WIFI quantity=2` | priced through the real CPQ cart actions: 16/month; **Quote count 452 before = 452 after** (rolled back) |
 | 7 | `manage_esm_permissions` preview (Admin) | 1 missing permission set listed, Approval card, nothing assigned |
 | 8 | `run_esm_admin_jobs` preview | 8 jobs in order: 5 automatic, 3 manual; nothing started |
