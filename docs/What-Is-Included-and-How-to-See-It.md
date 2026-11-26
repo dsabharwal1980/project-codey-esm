@@ -72,7 +72,7 @@ Ran on 26 Nov 2026 with `scripts/showcase.py` – only reads, no previews and no
 | Progress tracker | Latest background job | No job yet (expected – nothing has been run) |
 
 The full report with every answer and rendered card: [`docs/showcase/esm264-showcase.md`](showcase/esm264-showcase.md).
-**Note:** the deployed price explanation counted only the first 200 lines and 50 promotions of this very large quote; the figures above are the correct whole-quote numbers. The fix is in the repository and validated, but not deployed yet (nothing was changed in the org).
+**Note:** the deployed price explanation counted only the first 200 lines and 50 promotions of this very large quote; the figures above are the correct whole-quote numbers. This was fixed and deployed afterwards (with your approval); the tool now reports these whole-quote figures.
 
 The 7 warnings in this org: 4 admin jobs never run, Google Maps key not set, and 2 Console settings to check by hand in Setup.
 

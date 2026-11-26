@@ -18,7 +18,7 @@ Only read / explain calls were made: no previews, no commits, no changes to ESM 
 | 10 | Concepts guide | Quote Member vs quote line item, with real data from a quote | ✅ A Quote Member answers where; a quote line item answers what – with this quote's real counts. |
 | 11 | Concepts guide | Data model explained with real data | ✅ Enterprise Quote → Quote Members + Groups → lines → Enterprise Order → sub-orders, with real counts. |
 | 12 | Pricing | The pricing plan explained step by step | ✅ Pricing plan (DEFAULT_PRICING_PLAN), 12 steps in order: |
-| 13 | Pricing / Promotions & discounts | Prices, promotions and discounts on an existing quote (read-only) | ✅ Whole quote: 10,020 lines, one-time 835,000, recurring 150,300 per month; 84 promotions, 1 discount ⚠️ see note |
+| 13 | Pricing / Promotions & discounts | Prices, promotions and discounts on an existing quote (read-only) | ✅ Whole quote: 10,020 lines, one-time 835,000, recurring 150,300 per month; 84 promotions, 1 discount (fixed – see note) |
 | 14 | Customization (read-only part) | Context rules explained + quoting settings they need | ✅ Context rules decide product eligibility by member context (region, technology). |
 | 15 | Customization (read-only part) | Quoting settings (context rules, promotions, bulk updates) | ✅ ESM health check: 13 OK, 0 Warning, 0 Needs Fix. Everything matches the recommended settings. |
 | 16 | Bulk members (read-only part) | Address and serviceability explained with the quote's numbers | ✅ Address verification and serviceability explained, with the quote's numbers. |
@@ -29,7 +29,7 @@ The version of `preview_esm_price` deployed in esm264 builds its totals and coun
 so for this 10,020-line quote it reported "200 lines, 17,000 one-time, 3,060 per month, 50 promotions". The correct whole-quote figures
 (read-only query) are **10,020 lines (1,670 offers), 835,000 one-time, 150,300 per month, 84 applied promotions, 1 discount**.
 The repository version is fixed (totals and counts always cover the whole quote; step detail stays capped at 200 lines) and validated in
-esm264 with a check-only deploy (23/23 tests); it is **not deployed yet**, at your request to change nothing in the org.
+esm264 with a check-only deploy (23/23 tests); it was **deployed on 26 Nov 2026** after your approval; re-check: "Priced 10020 lines (step detail for the first 200): one-time 835,000, recurring 150,300 per month; 84 promotions, 1 discount".
 
 ## Cards that need a change to appear
 
