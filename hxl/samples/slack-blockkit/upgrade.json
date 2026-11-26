@@ -1,0 +1,69 @@
+{
+  "blocks": [
+    {
+      "type": "header",
+      "text": {
+        "type": "plain_text",
+        "text": "Upgrade impact – release 268"
+      }
+    },
+    {
+      "type": "context",
+      "elements": [
+        {
+          "type": "mrkdwn",
+          "text": "23 customized screens checked"
+        },
+        {
+          "type": "mrkdwn",
+          "text": ":x: Review before upgrading"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "fields": [
+        {
+          "type": "mrkdwn",
+          "text": "*High*\n2"
+        },
+        {
+          "type": "mrkdwn",
+          "text": "*Medium*\n3"
+        },
+        {
+          "type": "mrkdwn",
+          "text": "*Low*\n1"
+        }
+      ]
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": ":x: *High*  *cpqConfigureCartLineItems v5*\nCart configurator layout and event names reworked · customized: version 5, author Acme Dev  _FlexCard_"
+      },
+      "accessory": {
+        "type": "button",
+        "text": {
+          "type": "plain_text",
+          "text": "Suggest merged version"
+        },
+        "value": "Suggest a combined version of the customized FlexCard cpqConfigureCartLineItems v5 for release 268 for my review (do not deploy).",
+        "action_id": "codey_item_action"
+      }
+    },
+    {
+      "type": "context",
+      "elements": [
+        {
+          "type": "mrkdwn",
+          "text": "Report only: nothing is changed. A combined version is a suggestion for your review."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,764 @@
+# --- Project Codey: add this line to the ESM Coworker router instructions ---
+#   - Setting up or checking ESM (settings, permissions, admin jobs), pricing plan changes, context rules, Quote Member Binding, linear relationships, loading or checking many sites, upgrade impact, or how ESM works: use {!@actions.go_build}.
+# --- and this action to the router actions ---
+            go_build: @utils.transition to @subagent.build
+                description: "Project Codey build helper: setup, settings health, permissions, admin jobs, pricing plans, rules, bulk site checks, upgrade impact, concepts."
+# --- new subagent (append at the end of the agent) ---
+subagent build:
+    label: "Codey build helper"
+    description: "Project Codey skills inside the Coworker: setup, settings health check, permissions, admin jobs, pricing plans and steps, rules (context rules, Quote Member Binding, linear relationships, Enrich Quote), bulk site checks, upgrade impact and concepts."
+
+    reasoning:
+        instructions: ->
+            | You are the build helper inside the ESM Coworker (Project Codey). For setup, settings, permissions, admin jobs, pricing plans, rules, bulk site checks, upgrades and how-it-works questions:
+              - First call {!@actions.get_codey_playbook} with the matching skill (skill:fresh-install, skill:settings-health-check, skill:permissions, skill:pricing, skill:customization, skill:bulk-members, skill:upgrade-check, skill:concepts-guide) and follow it; for concepts pass the open quote as quoteId.
+              - Settings check: {!@actions.check_esm_setup}. Permissions: {!@actions.manage_esm_permissions}. Settings, pricing steps and rules: {!@actions.apply_esm_change}. Admin jobs: {!@actions.run_esm_admin_jobs}. Prices and steps of this quote or a sample: {!@actions.preview_esm_price}. Load and check many sites on this quote: {!@actions.check_quote_members_bulk}. Upgrades: {!@actions.check_esm_upgrade_impact}. Progress: {!@actions.track_codey_job}.
+              - Every change is mode preview first; say in one sentence what will change and ask for a clear yes; only then mode commit with the previewToken and the same inputs. Production needs confirmProduction true after the user confirms. Never ask for keys in chat (Codey Setup page).
+              Answer in at most two short sentences, using only what the actions returned.
+              Use only the results of the actions; keep the golden rules.
+        actions:
+            get_codey_playbook: @actions.get_codey_playbook_codey
+                with topic = ...
+                with quoteId = ...
+                with surface = "Coworker"
+            check_esm_setup: @actions.check_esm_setup_codey
+                with scope = ...
+                with surface = "Coworker"
+            manage_esm_permissions: @actions.manage_esm_permissions_codey
+                with mode = ...
+                with userType = ...
+                with users = ...
+                with profile = ...
+                with role = ...
+                with previewToken = ...
+                with confirmProduction = ...
+                with surface = "Coworker"
+            apply_esm_change: @actions.apply_esm_change_codey
+                with mode = ...
+                with changeType = ...
+                with target = ...
+                with value = ...
+                with fieldsJson = ...
+                with recordId = ...
+                with reason = ...
+                with previewToken = ...
+                with confirmProduction = ...
+                with surface = "Coworker"
+            run_esm_admin_jobs: @actions.run_esm_admin_jobs_codey
+                with mode = ...
+                with jobs = ...
+                with jobId = ...
+                with previewToken = ...
+                with confirmProduction = ...
+                with surface = "Coworker"
+            preview_esm_price: @actions.preview_esm_price_codey
+                with mode = ...
+                with products = ...
+                with quantity = ...
+                with account = ...
+                with priceList = ...
+                with quoteId = ...
+                with explainPlan = ...
+                with proposedStepJson = ...
+                with previewToken = ...
+                with confirmProduction = ...
+                with surface = "Coworker"
+            check_quote_members_bulk: @actions.check_quote_members_bulk_codey
+                with mode = ...
+                with quoteId = ...
+                with membersCsv = ...
+                with contentDocumentId = ...
+                with checks = ...
+                with onlyUnchecked = ...
+                with jobId = ...
+                with previewToken = ...
+                with confirmProduction = ...
+                with surface = "Coworker"
+            check_esm_upgrade_impact: @actions.check_esm_upgrade_impact_codey
+                with targetRelease = ...
+                with includeStandard = ...
+                with surface = "Coworker"
+            track_codey_job: @actions.track_codey_job_codey
+                with jobId = ...
+                with quoteId = ...
+                with tool = ...
+                with surface = "Coworker"
+
+    actions:
+        get_codey_playbook_codey:
+            description: "Read-only: Project Codey playbook, a skill, a runbook, a concept (with real examples from a quote), the recommended settings or the release change list."
+            label: "Get Codey Playbook"
+            require_user_confirmation: False
+            include_in_progress_indicator: True
+            progress_indicator_message: "Get Codey Playbook"
+            target: "apex://CodeyPlaybookTool"
+            inputs:
+                topic: string
+                    description: "overview, routing, rules, skill:<name>, runbook:US-01..US-11, concept:<key> or concept:all, settings, releases, index."
+                    label: "topic"
+                    is_required: False
+                quoteId: string
+                    description: "Optional quote Id or name for real examples in concept answers."
+                    label: "quoteId"
+                    is_required: False
+                surface: string
+                    description: "Where the request comes from, for example Agentforce or Coworker."
+                    label: "surface"
+                    is_required: False
+            outputs:
+                success: boolean
+                    description: "True when the request worked."
+                    label: "success"
+                    is_displayable: False
+                    filter_from_agent: False
+                message: string
+                    description: "Plain-language result to tell the person."
+                    label: "message"
+                    is_displayable: False
+                    filter_from_agent: False
+                previewToken: string
+                    description: "Returned by a preview; pass it back with mode=commit and the same inputs only after the person approved."
+                    label: "previewToken"
+                    is_displayable: False
+                    filter_from_agent: False
+                nextStep: string
+                    description: "Suggested next action."
+                    label: "nextStep"
+                    is_displayable: False
+                    filter_from_agent: False
+                fix: string
+                    description: "How to resolve a problem when success is false."
+                    label: "fix"
+                    is_displayable: False
+                    filter_from_agent: False
+                jobId: string
+                    description: "Background job id to track."
+                    label: "jobId"
+                    is_displayable: False
+                    filter_from_agent: False
+                changeLogId: string
+                    description: "Codey Change Log record (audit, undo)."
+                    label: "changeLogId"
+                    is_displayable: False
+                    filter_from_agent: False
+                resultJson: string
+                    description: "Structured details as JSON."
+                    label: "resultJson"
+                    is_displayable: False
+                    filter_from_agent: False
+
+        check_esm_setup_codey:
+            description: "Read-only ESM settings health check: OK / Warning / Needs Fix per item with reason, help link and fix."
+            label: "Check ESM Setup"
+            require_user_confirmation: False
+            include_in_progress_indicator: True
+            progress_indicator_message: "Check ESM Setup"
+            target: "apex://CodeyHealthCheckTool"
+            inputs:
+                scope: string
+                    description: "all (default), prereq, quoting, assets, performance, console, permissions or adminjobs."
+                    label: "scope"
+                    is_required: False
+                surface: string
+                    description: "Where the request comes from."
+                    label: "surface"
+                    is_required: False
+            outputs:
+                success: boolean
+                    description: "True when the request worked."
+                    label: "success"
+                    is_displayable: False
+                    filter_from_agent: False
+                message: string
+                    description: "Plain-language result to tell the person."
+                    label: "message"
+                    is_displayable: False
+                    filter_from_agent: False
+                previewToken: string
+                    description: "Returned by a preview; pass it back with mode=commit and the same inputs only after the person approved."
+                    label: "previewToken"
+                    is_displayable: False
+                    filter_from_agent: False
+                nextStep: string
+                    description: "Suggested next action."
+                    label: "nextStep"
+                    is_displayable: False
+                    filter_from_agent: False
+                fix: string
+                    description: "How to resolve a problem when success is false."
+                    label: "fix"
+                    is_displayable: False
+                    filter_from_agent: False
+                jobId: string
+                    description: "Background job id to track."
+                    label: "jobId"
+                    is_displayable: False
+                    filter_from_agent: False
+                changeLogId: string
+                    description: "Codey Change Log record (audit, undo)."
+                    label: "changeLogId"
+                    is_displayable: False
+                    filter_from_agent: False
+                resultJson: string
+                    description: "Structured details as JSON."
+                    label: "resultJson"
+                    is_displayable: False
+                    filter_from_agent: False
+
+        manage_esm_permissions_codey:
+            description: "Preview, then after approval assign, the recommended ESM permission sets for a user type. Only adds."
+            label: "Manage ESM Permissions"
+            require_user_confirmation: False
+            include_in_progress_indicator: True
+            progress_indicator_message: "Manage ESM Permissions"
+            target: "apex://CodeyPermissionsTool"
+            inputs:
+                mode: string
+                    description: "preview (default) or commit after the person approved."
+                    label: "mode"
+                    is_required: False
+                userType: string
+                    description: "Sales rep, Sales manager, Admin, Pricing admin, Product designer, Service agent or Coworker user."
+                    label: "userType"
+                    is_required: True
+                users: string
+                    description: "Comma-separated usernames, e-mails, names or Ids."
+                    label: "users"
+                    is_required: False
+                profile: string
+                    description: "Profile name."
+                    label: "profile"
+                    is_required: False
+                role: string
+                    description: "Role name."
+                    label: "role"
+                    is_required: False
+                previewToken: string
+                    description: "Token from the preview, for commit."
+                    label: "previewToken"
+                    is_required: False
+                confirmProduction: boolean
+                    description: "true only if the person confirmed a production change."
+                    label: "confirmProduction"
+                    is_required: False
+                surface: string
+                    description: "Where the request comes from."
+                    label: "surface"
+                    is_required: False
+            outputs:
+                success: boolean
+                    description: "True when the request worked."
+                    label: "success"
+                    is_displayable: False
+                    filter_from_agent: False
+                message: string
+                    description: "Plain-language result to tell the person."
+                    label: "message"
+                    is_displayable: False
+                    filter_from_agent: False
+                previewToken: string
+                    description: "Returned by a preview; pass it back with mode=commit and the same inputs only after the person approved."
+                    label: "previewToken"
+                    is_displayable: False
+                    filter_from_agent: False
+                nextStep: string
+                    description: "Suggested next action."
+                    label: "nextStep"
+                    is_displayable: False
+                    filter_from_agent: False
+                fix: string
+                    description: "How to resolve a problem when success is false."
+                    label: "fix"
+                    is_displayable: False
+                    filter_from_agent: False
+                jobId: string
+                    description: "Background job id to track."
+                    label: "jobId"
+                    is_displayable: False
+                    filter_from_agent: False
+                changeLogId: string
+                    description: "Codey Change Log record (audit, undo)."
+                    label: "changeLogId"
+                    is_displayable: False
+                    filter_from_agent: False
+                resultJson: string
+                    description: "Structured details as JSON."
+                    label: "resultJson"
+                    is_displayable: False
+                    filter_from_agent: False
+
+        apply_esm_change_codey:
+            description: "Approved configuration change with Before/After preview and undo: CPQ setting, Enrich Quote option, pricing plan step, context rule, Quote Member Binding, linear relationship."
+            label: "Apply ESM Change"
+            require_user_confirmation: False
+            include_in_progress_indicator: True
+            progress_indicator_message: "Apply ESM Change"
+            target: "apex://CodeyApplyChangeTool"
+            inputs:
+                mode: string
+                    description: "preview (default) or commit after the person approved."
+                    label: "mode"
+                    is_required: False
+                changeType: string
+                    description: "cpqSetting, enrichQuoteOption, generalSetting, pricingPlanStep, contextRule, contextRuleset, attributeBinding, linearRelationship, record or undo."
+                    label: "changeType"
+                    is_required: True
+                target: string
+                    description: "Setting name, object API name (record) or change log CL-... (undo)."
+                    label: "target"
+                    is_required: False
+                value: string
+                    description: "New setting value."
+                    label: "value"
+                    is_required: False
+                fieldsJson: string
+                    description: "JSON with the fields for record changes."
+                    label: "fieldsJson"
+                    is_required: False
+                recordId: string
+                    description: "Existing record to update."
+                    label: "recordId"
+                    is_required: False
+                reason: string
+                    description: "Why the change is made."
+                    label: "reason"
+                    is_required: False
+                previewToken: string
+                    description: "Token from the preview, for commit."
+                    label: "previewToken"
+                    is_required: False
+                confirmProduction: boolean
+                    description: "true only if the person confirmed a production change."
+                    label: "confirmProduction"
+                    is_required: False
+                surface: string
+                    description: "Where the request comes from."
+                    label: "surface"
+                    is_required: False
+            outputs:
+                success: boolean
+                    description: "True when the request worked."
+                    label: "success"
+                    is_displayable: False
+                    filter_from_agent: False
+                message: string
+                    description: "Plain-language result to tell the person."
+                    label: "message"
+                    is_displayable: False
+                    filter_from_agent: False
+                previewToken: string
+                    description: "Returned by a preview; pass it back with mode=commit and the same inputs only after the person approved."
+                    label: "previewToken"
+                    is_displayable: False
+                    filter_from_agent: False
+                nextStep: string
+                    description: "Suggested next action."
+                    label: "nextStep"
+                    is_displayable: False
+                    filter_from_agent: False
+                fix: string
+                    description: "How to resolve a problem when success is false."
+                    label: "fix"
+                    is_displayable: False
+                    filter_from_agent: False
+                jobId: string
+                    description: "Background job id to track."
+                    label: "jobId"
+                    is_displayable: False
+                    filter_from_agent: False
+                changeLogId: string
+                    description: "Codey Change Log record (audit, undo)."
+                    label: "changeLogId"
+                    is_displayable: False
+                    filter_from_agent: False
+                resultJson: string
+                    description: "Structured details as JSON."
+                    label: "resultJson"
+                    is_displayable: False
+                    filter_from_agent: False
+
+        run_esm_admin_jobs_codey:
+            description: "ESM admin jobs in the documented order with progress; preview, commit after approval, status, resume."
+            label: "Run ESM Admin Jobs"
+            require_user_confirmation: False
+            include_in_progress_indicator: True
+            progress_indicator_message: "Run ESM Admin Jobs"
+            target: "apex://CodeyAdminJobsTool"
+            inputs:
+                mode: string
+                    description: "preview (default), commit after approval, or status."
+                    label: "mode"
+                    is_required: False
+                jobs: string
+                    description: "default, catalog, pricing, promotions, repair or job keys."
+                    label: "jobs"
+                    is_required: False
+                jobId: string
+                    description: "Codey job id for status or resume."
+                    label: "jobId"
+                    is_required: False
+                previewToken: string
+                    description: "Token from the preview, for commit."
+                    label: "previewToken"
+                    is_required: False
+                confirmProduction: boolean
+                    description: "true only if the person confirmed running jobs in production."
+                    label: "confirmProduction"
+                    is_required: False
+                surface: string
+                    description: "Where the request comes from."
+                    label: "surface"
+                    is_required: False
+            outputs:
+                success: boolean
+                    description: "True when the request worked."
+                    label: "success"
+                    is_displayable: False
+                    filter_from_agent: False
+                message: string
+                    description: "Plain-language result to tell the person."
+                    label: "message"
+                    is_displayable: False
+                    filter_from_agent: False
+                previewToken: string
+                    description: "Returned by a preview; pass it back with mode=commit and the same inputs only after the person approved."
+                    label: "previewToken"
+                    is_displayable: False
+                    filter_from_agent: False
+                nextStep: string
+                    description: "Suggested next action."
+                    label: "nextStep"
+                    is_displayable: False
+                    filter_from_agent: False
+                fix: string
+                    description: "How to resolve a problem when success is false."
+                    label: "fix"
+                    is_displayable: False
+                    filter_from_agent: False
+                jobId: string
+                    description: "Background job id to track."
+                    label: "jobId"
+                    is_displayable: False
+                    filter_from_agent: False
+                changeLogId: string
+                    description: "Codey Change Log record (audit, undo)."
+                    label: "changeLogId"
+                    is_displayable: False
+                    filter_from_agent: False
+                resultJson: string
+                    description: "Structured details as JSON."
+                    label: "resultJson"
+                    is_displayable: False
+                    filter_from_agent: False
+
+        preview_esm_price_codey:
+            description: "Price a sample quote without saving (every step, promotions, discounts); explain the pricing plan or an existing quote; simulate a new pricing step."
+            label: "Preview ESM Price"
+            require_user_confirmation: False
+            include_in_progress_indicator: True
+            progress_indicator_message: "Preview ESM Price"
+            target: "apex://CodeyPricePreviewTool"
+            inputs:
+                mode: string
+                    description: "preview (default) or commit to keep a test quote after approval."
+                    label: "mode"
+                    is_required: False
+                products: string
+                    description: "Comma-separated product names, codes or Ids."
+                    label: "products"
+                    is_required: False
+                quantity: number
+                    description: "Quantity per product."
+                    label: "quantity"
+                    is_required: False
+                account: string
+                    description: "Account Id or name."
+                    label: "account"
+                    is_required: False
+                priceList: string
+                    description: "Price list name."
+                    label: "priceList"
+                    is_required: False
+                quoteId: string
+                    description: "Existing quote to explain (read-only)."
+                    label: "quoteId"
+                    is_required: False
+                explainPlan: boolean
+                    description: "true to list the pricing plan steps."
+                    label: "explainPlan"
+                    is_required: False
+                proposedStepJson: string
+                    description: "Pricing plan step JSON to simulate."
+                    label: "proposedStepJson"
+                    is_required: False
+                previewToken: string
+                    description: "Token from the preview, for commit."
+                    label: "previewToken"
+                    is_required: False
+                confirmProduction: boolean
+                    description: "true only if the person confirmed in production."
+                    label: "confirmProduction"
+                    is_required: False
+                surface: string
+                    description: "Where the request comes from."
+                    label: "surface"
+                    is_required: False
+            outputs:
+                success: boolean
+                    description: "True when the request worked."
+                    label: "success"
+                    is_displayable: False
+                    filter_from_agent: False
+                message: string
+                    description: "Plain-language result to tell the person."
+                    label: "message"
+                    is_displayable: False
+                    filter_from_agent: False
+                previewToken: string
+                    description: "Returned by a preview; pass it back with mode=commit and the same inputs only after the person approved."
+                    label: "previewToken"
+                    is_displayable: False
+                    filter_from_agent: False
+                nextStep: string
+                    description: "Suggested next action."
+                    label: "nextStep"
+                    is_displayable: False
+                    filter_from_agent: False
+                fix: string
+                    description: "How to resolve a problem when success is false."
+                    label: "fix"
+                    is_displayable: False
+                    filter_from_agent: False
+                jobId: string
+                    description: "Background job id to track."
+                    label: "jobId"
+                    is_displayable: False
+                    filter_from_agent: False
+                changeLogId: string
+                    description: "Codey Change Log record (audit, undo)."
+                    label: "changeLogId"
+                    is_displayable: False
+                    filter_from_agent: False
+                resultJson: string
+                    description: "Structured details as JSON."
+                    label: "resultJson"
+                    is_displayable: False
+                    filter_from_agent: False
+
+        check_quote_members_bulk_codey:
+            description: "Load many quote members from a spreadsheet and check addresses and serviceability in the background, with a results file."
+            label: "Check Quote Members Bulk"
+            require_user_confirmation: False
+            include_in_progress_indicator: True
+            progress_indicator_message: "Check Quote Members Bulk"
+            target: "apex://CodeyBulkCheckTool"
+            inputs:
+                mode: string
+                    description: "preview (default), commit after approval, or status."
+                    label: "mode"
+                    is_required: False
+                quoteId: string
+                    description: "Enterprise Quote Id or name."
+                    label: "quoteId"
+                    is_required: True
+                membersCsv: string
+                    description: "CSV text with a header row (name/site, street/address, city, state, postal code, country)."
+                    label: "membersCsv"
+                    is_required: False
+                contentDocumentId: string
+                    description: "ContentDocument Id (069...) of an attached CSV."
+                    label: "contentDocumentId"
+                    is_required: False
+                checks: string
+                    description: "address, serviceability, or none."
+                    label: "checks"
+                    is_required: False
+                onlyUnchecked: boolean
+                    description: "false to re-check every member."
+                    label: "onlyUnchecked"
+                    is_required: False
+                jobId: string
+                    description: "Codey job id for status or resume."
+                    label: "jobId"
+                    is_required: False
+                previewToken: string
+                    description: "Token from the preview, for commit."
+                    label: "previewToken"
+                    is_required: False
+                confirmProduction: boolean
+                    description: "true only if the person confirmed in production."
+                    label: "confirmProduction"
+                    is_required: False
+                surface: string
+                    description: "Where the request comes from."
+                    label: "surface"
+                    is_required: False
+            outputs:
+                success: boolean
+                    description: "True when the request worked."
+                    label: "success"
+                    is_displayable: False
+                    filter_from_agent: False
+                message: string
+                    description: "Plain-language result to tell the person."
+                    label: "message"
+                    is_displayable: False
+                    filter_from_agent: False
+                previewToken: string
+                    description: "Returned by a preview; pass it back with mode=commit and the same inputs only after the person approved."
+                    label: "previewToken"
+                    is_displayable: False
+                    filter_from_agent: False
+                nextStep: string
+                    description: "Suggested next action."
+                    label: "nextStep"
+                    is_displayable: False
+                    filter_from_agent: False
+                fix: string
+                    description: "How to resolve a problem when success is false."
+                    label: "fix"
+                    is_displayable: False
+                    filter_from_agent: False
+                jobId: string
+                    description: "Background job id to track."
+                    label: "jobId"
+                    is_displayable: False
+                    filter_from_agent: False
+                changeLogId: string
+                    description: "Codey Change Log record (audit, undo)."
+                    label: "changeLogId"
+                    is_displayable: False
+                    filter_from_agent: False
+                resultJson: string
+                    description: "Structured details as JSON."
+                    label: "resultJson"
+                    is_displayable: False
+                    filter_from_agent: False
+
+        check_esm_upgrade_impact_codey:
+            description: "Read-only: customized ESM screens a release affects, risk and suggested action."
+            label: "Check ESM Upgrade Impact"
+            require_user_confirmation: False
+            include_in_progress_indicator: True
+            progress_indicator_message: "Check ESM Upgrade Impact"
+            target: "apex://CodeyUpgradeImpactTool"
+            inputs:
+                targetRelease: string
+                    description: "Release, for example 268 (default newest)."
+                    label: "targetRelease"
+                    is_required: False
+                includeStandard: boolean
+                    description: "true to also list non-customized components."
+                    label: "includeStandard"
+                    is_required: False
+                surface: string
+                    description: "Where the request comes from."
+                    label: "surface"
+                    is_required: False
+            outputs:
+                success: boolean
+                    description: "True when the request worked."
+                    label: "success"
+                    is_displayable: False
+                    filter_from_agent: False
+                message: string
+                    description: "Plain-language result to tell the person."
+                    label: "message"
+                    is_displayable: False
+                    filter_from_agent: False
+                previewToken: string
+                    description: "Returned by a preview; pass it back with mode=commit and the same inputs only after the person approved."
+                    label: "previewToken"
+                    is_displayable: False
+                    filter_from_agent: False
+                nextStep: string
+                    description: "Suggested next action."
+                    label: "nextStep"
+                    is_displayable: False
+                    filter_from_agent: False
+                fix: string
+                    description: "How to resolve a problem when success is false."
+                    label: "fix"
+                    is_displayable: False
+                    filter_from_agent: False
+                jobId: string
+                    description: "Background job id to track."
+                    label: "jobId"
+                    is_displayable: False
+                    filter_from_agent: False
+                changeLogId: string
+                    description: "Codey Change Log record (audit, undo)."
+                    label: "changeLogId"
+                    is_displayable: False
+                    filter_from_agent: False
+                resultJson: string
+                    description: "Structured details as JSON."
+                    label: "resultJson"
+                    is_displayable: False
+                    filter_from_agent: False
+
+        track_codey_job_codey:
+            description: "Read-only progress of a Codey background job: steps, errors, results file, resume."
+            label: "Track Codey Job"
+            require_user_confirmation: False
+            include_in_progress_indicator: True
+            progress_indicator_message: "Track Codey Job"
+            target: "apex://CodeyTrackJobTool"
+            inputs:
+                jobId: string
+                    description: "Codey job id or CJ-... name."
+                    label: "jobId"
+                    is_required: False
+                quoteId: string
+                    description: "Quote Id or name for its latest job."
+                    label: "quoteId"
+                    is_required: False
+                tool: string
+                    description: "run_esm_admin_jobs or check_quote_members_bulk."
+                    label: "tool"
+                    is_required: False
+                surface: string
+                    description: "Where the request comes from."
+                    label: "surface"
+                    is_required: False
+            outputs:
+                success: boolean
+                    description: "True when the request worked."
+                    label: "success"
+                    is_displayable: False
+                    filter_from_agent: False
+                message: string
+                    description: "Plain-language result to tell the person."
+                    label: "message"
+                    is_displayable: False
+                    filter_from_agent: False
+                previewToken: string
+                    description: "Returned by a preview; pass it back with mode=commit and the same inputs only after the person approved."
+                    label: "previewToken"
+                    is_displayable: False
+                    filter_from_agent: False
+                nextStep: string
+                    description: "Suggested next action."
+                    label: "nextStep"
+                    is_displayable: False
+                    filter_from_agent: False
+                fix: string
+                    description: "How to resolve a problem when success is false."
+                    label: "fix"
+                    is_displayable: False
+                    filter_from_agent: False
+                jobId: string
+                    description: "Background job id to track."
+                    label: "jobId"
+                    is_displayable: False
+                    filter_from_agent: False
+                changeLogId: string
+                    description: "Codey Change Log record (audit, undo)."
+                    label: "changeLogId"
+                    is_displayable: False
+                    filter_from_agent: False
+                resultJson: string
+                    description: "Structured details as JSON."
+                    label: "resultJson"
+                    is_displayable: False
+                    filter_from_agent: False

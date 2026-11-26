@@ -1,0 +1,6 @@
+{
+  "mcpServers": {
+    "esm-codey": { "url": "<HOSTED_MCP_URL of EsmCodeyEaseOfBuild>" },
+    "codey-knowledge": { "command": "node", "args": ["./mcp-server/src/index.js"] }
+  }
+}

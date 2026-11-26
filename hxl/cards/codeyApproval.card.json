@@ -1,0 +1,19 @@
+{
+  "name": "codeyApproval",
+  "label": "Codey Approval",
+  "description": "Project Codey Approval screen: exactly what will change, Before and After, Approve / Reject. Used before any change.",
+  "salesforceWidget": "UiWidgetBundle:codeyApproval",
+  "lightningType": "LightningTypeBundle:codeyApprovalResult",
+  "dataSchema": "codey-card.schema.json",
+  "cardType": "approval",
+  "layout": [
+    "header (icon, subtitle, title, badge)",
+    "stats",
+    null,
+    "items",
+    "more",
+    "callout",
+    "note",
+    "buttons"
+  ]
+}

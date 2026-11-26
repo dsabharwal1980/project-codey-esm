@@ -1,0 +1,19 @@
+{
+  "name": "codeyUpgradeImpact",
+  "label": "Codey Upgrade impact report",
+  "description": "Project Codey Upgrade impact report: customized screens a release affects, risk level and suggested action.",
+  "salesforceWidget": "UiWidgetBundle:codeyUpgradeImpact",
+  "lightningType": "LightningTypeBundle:codeyUpgradeImpactResult",
+  "dataSchema": "codey-card.schema.json",
+  "cardType": "upgrade",
+  "layout": [
+    "header (icon, subtitle, title, badge)",
+    "stats",
+    null,
+    "items",
+    "more",
+    "callout",
+    "note",
+    "buttons"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "codeyProgress",
+  "label": "Codey Progress tracker",
+  "description": "Project Codey Progress tracker: long jobs (install, admin jobs, bulk checks), each step and where a failed job resumes.",
+  "salesforceWidget": "UiWidgetBundle:codeyProgress",
+  "lightningType": "LightningTypeBundle:codeyProgressResult",
+  "dataSchema": "codey-card.schema.json",
+  "cardType": "progress",
+  "layout": [
+    "header (icon, subtitle, title, badge)",
+    "stats",
+    "progress",
+    "items",
+    "more",
+    "callout",
+    "note",
+    "buttons"
+  ]
+}

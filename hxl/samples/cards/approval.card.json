@@ -1,0 +1,52 @@
+{
+  "cardType": "approval",
+  "title": "Apply CPQ setting EnableCoreLogs",
+  "subtitle": "CpqConfigurationSetup",
+  "icon": "check-circle",
+  "hasBadge": true,
+  "badgeLabel": "Waiting for approval",
+  "badgeVariant": "warning",
+  "hasStats": true,
+  "stats": [
+    {
+      "label": "Changes",
+      "value": "1"
+    },
+    {
+      "label": "Updated",
+      "value": "1"
+    }
+  ],
+  "hasItems": true,
+  "itemsTitle": "What will change",
+  "items": [
+    {
+      "icon": "edit",
+      "iconColor": "primary",
+      "title": "SetupValue",
+      "hasBefore": true,
+      "beforeValue": "true",
+      "afterValue": "false",
+      "hasBadge": true,
+      "badgeLabel": "Update",
+      "badgeVariant": "info"
+    }
+  ],
+  "hasNote": true,
+  "note": "Nothing is saved until you approve. Every change is logged.",
+  "hasButtons": true,
+  "buttons": [
+    {
+      "label": "Approve",
+      "variant": "primary",
+      "isMessage": true,
+      "message": "Approve – go ahead with \"Update CPQ setting EnableCoreLogs\" (preview token 3f2a…)."
+    },
+    {
+      "label": "Reject",
+      "variant": "secondary",
+      "isMessage": true,
+      "message": "Reject – do not make the change."
+    }
+  ]
+}

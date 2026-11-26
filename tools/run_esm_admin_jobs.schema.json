@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "run_esm_admin_jobs",
+  "description": "ESM admin (maintenance) jobs in the documented order with progress. jobs: default (recommended), catalog, pricing, promotions, repair, or job keys. mode=preview lists the jobs (automatic and manual steps); after the person approves, mode=commit with previewToken and same inputs starts them in the background and returns a jobId and a Progress tracker card. mode=status (jobId) shows progress and plain-language errors. A failed run resumes from the failed step: mode=preview with jobId, approval, then mode=commit with jobId. Only one run at a time.",
+  "x-apex-class": "CodeyAdminJobsTool",
+  "type": "object",
+  "properties": {
+    "mode": {
+      "type": "string",
+      "description": "preview (default), commit after approval, or status."
+    },
+    "jobs": {
+      "type": "string",
+      "description": "default, catalog, pricing, promotions, repair or job keys."
+    },
+    "jobId": {
+      "type": "string",
+      "description": "Codey job id for status or resume."
+    },
+    "previewToken": {
+      "type": "string",
+      "description": "Token from the preview, for commit."
+    },
+    "confirmProduction": {
+      "type": "boolean",
+      "description": "true only if the person confirmed running jobs in production."
+    },
+    "surface": {
+      "type": "string",
+      "description": "Where the request comes from."
+    }
+  },
+  "required": [],
+  "x-output": {
+    "success": {
+      "type": "boolean",
+      "description": "True when the request worked."
+    },
+    "message": {
+      "type": "string",
+      "description": "Plain-language result to tell the person."
+    },
+    "previewToken": {
+      "type": "string",
+      "description": "Returned by a preview; pass it back with mode=commit and the same inputs only after the person approved."
+    },
+    "nextStep": {
+      "type": "string",
+      "description": "Suggested next action."
+    },
+    "fix": {
+      "type": "string",
+      "description": "How to resolve a problem when success is false."
+    },
+    "jobId": {
+      "type": "string",
+      "description": "Background job id to track."
+    },
+    "changeLogId": {
+      "type": "string",
+      "description": "Codey Change Log record (audit, undo)."
+    },
+    "resultJson": {
+      "type": "string",
+      "description": "Structured details as JSON."
+    },
+    "card": {
+      "$ref": "../hxl/cards/codey-card.schema.json"
+    }
+  }
+}

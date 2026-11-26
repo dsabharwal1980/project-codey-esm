@@ -1,0 +1,80 @@
+{
+  "blocks": [
+    {
+      "type": "header",
+      "text": {
+        "type": "plain_text",
+        "text": "Apply CPQ setting EnableCoreLogs"
+      }
+    },
+    {
+      "type": "context",
+      "elements": [
+        {
+          "type": "mrkdwn",
+          "text": "CpqConfigurationSetup"
+        },
+        {
+          "type": "mrkdwn",
+          "text": ":warning: Waiting for approval"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "fields": [
+        {
+          "type": "mrkdwn",
+          "text": "*Changes*\n1"
+        },
+        {
+          "type": "mrkdwn",
+          "text": "*Updated*\n1"
+        }
+      ]
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": ":information_source: *Update*  *SetupValue*\ntrue → *false*"
+      }
+    },
+    {
+      "type": "context",
+      "elements": [
+        {
+          "type": "mrkdwn",
+          "text": "Nothing is saved until you approve. Every change is logged."
+        }
+      ]
+    },
+    {
+      "type": "actions",
+      "elements": [
+        {
+          "type": "button",
+          "text": {
+            "type": "plain_text",
+            "text": "Approve"
+          },
+          "value": "Approve – go ahead with \"Update CPQ setting EnableCoreLogs\" (preview token 3f2a…).",
+          "action_id": "codey_msg_0",
+          "style": "primary"
+        },
+        {
+          "type": "button",
+          "text": {
+            "type": "plain_text",
+            "text": "Reject"
+          },
+          "value": "Reject – do not make the change.",
+          "action_id": "codey_msg_1"
+        }
+      ]
+    }
+  ]
+}

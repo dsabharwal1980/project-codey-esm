@@ -1,0 +1,83 @@
+{
+  "type": "AdaptiveCard",
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.5",
+  "body": [
+    {
+      "type": "TextBlock",
+      "text": "Apply CPQ setting EnableCoreLogs",
+      "weight": "Bolder",
+      "size": "Large",
+      "wrap": true
+    },
+    {
+      "type": "TextBlock",
+      "text": "CpqConfigurationSetup",
+      "isSubtle": true,
+      "wrap": true,
+      "spacing": "None"
+    },
+    {
+      "type": "TextBlock",
+      "text": "Waiting for approval",
+      "color": "Warning",
+      "weight": "Bolder"
+    },
+    {
+      "type": "FactSet",
+      "facts": [
+        {
+          "title": "Changes",
+          "value": "1"
+        },
+        {
+          "title": "Updated",
+          "value": "1"
+        }
+      ]
+    },
+    {
+      "type": "Container",
+      "separator": true,
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "[Update] SetupValue",
+          "weight": "Bolder",
+          "wrap": true
+        },
+        {
+          "type": "TextBlock",
+          "text": "true → false",
+          "isSubtle": true,
+          "wrap": true,
+          "spacing": "None"
+        }
+      ]
+    },
+    {
+      "type": "TextBlock",
+      "text": "Nothing is saved until you approve. Every change is logged.",
+      "isSubtle": true,
+      "wrap": true,
+      "size": "Small"
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Submit",
+      "title": "Approve",
+      "data": {
+        "codeyMessage": "Approve – go ahead with \"Update CPQ setting EnableCoreLogs\" (preview token 3f2a…)."
+      },
+      "style": "positive"
+    },
+    {
+      "type": "Action.Submit",
+      "title": "Reject",
+      "data": {
+        "codeyMessage": "Reject – do not make the change."
+      }
+    }
+  ]
+}

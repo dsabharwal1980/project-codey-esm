@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "check_esm_setup",
+  "description": "Read-only ESM settings health check (about 1 minute). scope: all (default), prereq (fresh-install prerequisites), quoting, assets (add assets to quote), performance, console, permissions, adminjobs. Returns each item as OK / Warning / Needs Fix with the reason, current vs recommended value (secrets masked), a help link and a Fix it message, plus a Health check report card. Nothing changes. Offer fixes one by one; each fix is a preview the person approves (apply_esm_change, manage_esm_permissions or run_esm_admin_jobs).",
+  "x-apex-class": "CodeyHealthCheckTool",
+  "type": "object",
+  "properties": {
+    "scope": {
+      "type": "string",
+      "description": "all (default), prereq, quoting, assets, performance, console, permissions or adminjobs."
+    },
+    "surface": {
+      "type": "string",
+      "description": "Where the request comes from."
+    }
+  },
+  "required": [],
+  "x-output": {
+    "success": {
+      "type": "boolean",
+      "description": "True when the request worked."
+    },
+    "message": {
+      "type": "string",
+      "description": "Plain-language result to tell the person."
+    },
+    "previewToken": {
+      "type": "string",
+      "description": "Returned by a preview; pass it back with mode=commit and the same inputs only after the person approved."
+    },
+    "nextStep": {
+      "type": "string",
+      "description": "Suggested next action."
+    },
+    "fix": {
+      "type": "string",
+      "description": "How to resolve a problem when success is false."
+    },
+    "jobId": {
+      "type": "string",
+      "description": "Background job id to track."
+    },
+    "changeLogId": {
+      "type": "string",
+      "description": "Codey Change Log record (audit, undo)."
+    },
+    "resultJson": {
+      "type": "string",
+      "description": "Structured details as JSON."
+    },
+    "card": {
+      "$ref": "../hxl/cards/codey-card.schema.json"
+    }
+  }
+}

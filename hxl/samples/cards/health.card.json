@@ -1,0 +1,74 @@
+{
+  "cardType": "health",
+  "title": "ESM settings health check",
+  "subtitle": "Communications Cloud licence Active · 168 CPQ settings read · Sandbox · scope all",
+  "icon": "heart-pulse",
+  "hasBadge": true,
+  "badgeLabel": "Needs Fix",
+  "badgeVariant": "error",
+  "hasStats": true,
+  "stats": [
+    {
+      "label": "OK",
+      "value": "41"
+    },
+    {
+      "label": "Warning",
+      "value": "6"
+    },
+    {
+      "label": "Needs Fix",
+      "value": "2"
+    }
+  ],
+  "hasItems": true,
+  "itemsTitle": "Items to look at",
+  "items": [
+    {
+      "icon": "x-circle",
+      "iconColor": "error",
+      "title": "Asset reference ids for parent/root",
+      "subtitle": "Adding assets to a quote relies on asset reference ids.  Current: false · Recommended: true",
+      "value": "AddAssets",
+      "hasBadge": true,
+      "badgeLabel": "Needs Fix",
+      "badgeVariant": "error",
+      "hasAction": true,
+      "actionLabel": "Fix it",
+      "actionMessage": "Fix it: preview apply_esm_change changeType=cpqSetting target=UseAssetReferenceIdForParentAndRoot value=true and ask me to approve.",
+      "hasLink": true,
+      "linkLabel": "Help",
+      "linkUrl": "https://help.salesforce.com/s/articleView?id=ind.comms_add_assets_to_quote.htm&type=5"
+    },
+    {
+      "icon": "alert-triangle",
+      "iconColor": "warning",
+      "title": "Core logs off",
+      "subtitle": "Detailed logs slow down every cart call.  Current: true · Recommended: false",
+      "value": "Performance",
+      "hasBadge": true,
+      "badgeLabel": "Warning",
+      "badgeVariant": "warning",
+      "hasAction": true,
+      "actionLabel": "Fix it",
+      "actionMessage": "Fix it: preview apply_esm_change changeType=cpqSetting target=EnableCoreLogs value=false and ask me to approve."
+    }
+  ],
+  "hasNote": true,
+  "note": "Read-only check. A fix changes nothing until you approve its preview.",
+  "hasButtons": true,
+  "buttons": [
+    {
+      "label": "Fix all fixable items",
+      "variant": "primary",
+      "isMessage": true,
+      "message": "Preview fixes for all fixable Needs Fix and Warning items from the health check."
+    },
+    {
+      "label": "Run again",
+      "variant": "secondary",
+      "isMessage": true,
+      "message": "Run the ESM settings health check again."
+    }
+  ]
+}

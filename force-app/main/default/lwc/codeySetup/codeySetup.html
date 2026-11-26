@@ -1,0 +1,47 @@
+<template>
+    <lightning-card title="Codey Setup – Enterprise Sales Management" icon-name="standard:settings">
+        <div class="slds-p-horizontal_medium">
+            <p class="slds-text-body_regular slds-m-bottom_small">Project Codey checks and sets up ESM for you. Ask your Codey agent in Slack, Claude, ChatGPT, Agentforce or the ESM Coworker; this page shows the same reports and the secure key form.</p>
+            <template lwc:if={busy}><lightning-spinner alternative-text="Working" size="small"></lightning-spinner></template>
+            <template lwc:if={error}><div class="slds-text-color_error slds-m-bottom_small">{error}</div></template>
+            <template lwc:if={hint}><div class="slds-box slds-theme_shade slds-m-bottom_small">{hint}</div></template>
+            <lightning-tabset>
+                <lightning-tab label="Health check">
+                    <div class="slds-grid slds-grid_vertical-align-end slds-gutters slds-m-bottom_small">
+                        <div class="slds-col slds-size_1-of-3"><lightning-combobox label="Scope" value={scope} options={scopeOptions} onchange={handleScope}></lightning-combobox></div>
+                        <div class="slds-col"><lightning-button variant="brand" label="Run health check" onclick={runHealth}></lightning-button></div>
+                    </div>
+                    <template lwc:if={healthCard}>
+                        <p class="slds-m-bottom_small">{healthMessage}</p>
+                        <c-codey-card card={healthCard} oncardaction={handleCardAction}></c-codey-card>
+                    </template>
+                </lightning-tab>
+                <lightning-tab label="Upgrade impact">
+                    <div class="slds-grid slds-grid_vertical-align-end slds-gutters slds-m-bottom_small">
+                        <div class="slds-col slds-size_1-of-3"><lightning-input label="Release (empty = newest)" value={release} onchange={handleRelease}></lightning-input></div>
+                        <div class="slds-col"><lightning-button variant="brand" label="Check upgrade impact" onclick={runUpgrade}></lightning-button></div>
+                    </div>
+                    <template lwc:if={upgradeCard}>
+                        <p class="slds-m-bottom_small">{upgradeMessage}</p>
+                        <c-codey-card card={upgradeCard} oncardaction={handleCardAction}></c-codey-card>
+                    </template>
+                </lightning-tab>
+                <lightning-tab label="Google Maps key">
+                    <p class="slds-m-bottom_small">The key is stored in the ESM setting <strong>{maps.setting}</strong>. It is never shown again, never sent through chat and only "set / not set" is logged.</p>
+                    <p class="slds-m-bottom_small">Current state: <strong>{mapsState}</strong></p>
+                    <lightning-input type="password" label="Google Maps API key" value={mapsKey} onchange={handleMapsKey} disabled={cannotEditMaps}></lightning-input>
+                    <lightning-button class="slds-m-top_small" variant="brand" label="Save key" onclick={saveMaps} disabled={cannotEditMaps}></lightning-button>
+                    <template lwc:if={cannotEditMaps}><p class="slds-text-color_weak slds-m-top_small">You need the ESM Codey Admin permission set to enter keys.</p></template>
+                    <template lwc:if={mapsSaved}><p class="slds-text-color_success slds-m-top_small">Saved. Ask your agent to re-run the Console health check.</p></template>
+                </lightning-tab>
+                <lightning-tab label="Activity">
+                    <h3 class="slds-text-heading_small slds-m-vertical_small">Background jobs</h3>
+                    <lightning-datatable key-field="id" data={jobs} columns={jobColumns} hide-checkbox-column></lightning-datatable>
+                    <h3 class="slds-text-heading_small slds-m-vertical_small">Change log (previews, approvals, commits, reads)</h3>
+                    <lightning-datatable key-field="id" data={logs} columns={logColumns} hide-checkbox-column></lightning-datatable>
+                    <lightning-button class="slds-m-top_small" label="Refresh" onclick={loadRecent}></lightning-button>
+                </lightning-tab>
+            </lightning-tabset>
+        </div>
+    </lightning-card>
+</template>

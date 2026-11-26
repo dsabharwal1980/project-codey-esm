@@ -1,0 +1,50 @@
+{
+  "title": "Project Codey tool output",
+  "lightning:type": "lightning__objectType",
+  "unevaluatedProperties": false,
+  "lightning:tags": [
+    "mcp"
+  ],
+  "properties": {
+    "success": {
+      "title": "Success",
+      "lightning:type": "lightning__booleanType"
+    },
+    "mode": {
+      "title": "Mode",
+      "lightning:type": "lightning__textType"
+    },
+    "message": {
+      "title": "Message",
+      "lightning:type": "lightning__multilineTextType"
+    },
+    "previewToken": {
+      "title": "Preview token",
+      "lightning:type": "lightning__textType"
+    },
+    "resultJson": {
+      "title": "Result JSON",
+      "lightning:type": "lightning__multilineTextType"
+    },
+    "jobId": {
+      "title": "Job",
+      "lightning:type": "lightning__textType"
+    },
+    "changeLogId": {
+      "title": "Change log",
+      "lightning:type": "lightning__textType"
+    },
+    "nextStep": {
+      "title": "Next step",
+      "lightning:type": "lightning__multilineTextType"
+    },
+    "fix": {
+      "title": "Fix",
+      "lightning:type": "lightning__multilineTextType"
+    },
+    "card": {
+      "title": "Card",
+      "lightning:type": "@apexClassType/c__CodeyCard"
+    }
+  }
+}

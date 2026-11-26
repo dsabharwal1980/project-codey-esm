@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<UiWidgetBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>Codey Approval</masterLabel>
+    <description>Project Codey Approval screen: exactly what will change, Before and After, Approve / Reject. Used before any change.</description>
+    <widgetType>JSON</widgetType>
+</UiWidgetBundle>

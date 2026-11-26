@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <brand>
+        <headerColor>#0176D3</headerColor>
+        <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
+    </brand>
+    <description>Project Codey – ESM ease of build: health check, upgrade impact, secure setup values and the Codey change log.</description>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <label>Codey Setup</label>
+    <navType>Standard</navType>
+    <tabs>Codey_Setup</tabs>
+    <tabs>Codey_Change_Log__c</tabs>
+    <tabs>Codey_Job__c</tabs>
+    <uiType>Lightning</uiType>
+</CustomApplication>

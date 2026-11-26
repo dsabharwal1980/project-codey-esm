@@ -1,0 +1,98 @@
+{
+ "pack": "Release change list",
+ "owner": "Release team \u2013 published with every release",
+ "status": "SEED \u2013 sample entries showing the format; replace with the official list for each release before relying on it",
+ "releases": [
+  {
+   "release": "268",
+   "name": "Release 268",
+   "publishedOn": "TBD",
+   "components": [
+    {
+     "pattern": "cfCpqConfigureCart*",
+     "kind": "FlexCard",
+     "change": "Cart configurator layout and event names reworked for the working cart.",
+     "risk": "High",
+     "advice": "Compare your copy with the new standard card; move custom fields into the new slots; re-test add/configure/price."
+    },
+    {
+     "pattern": "cfCpqCartItems*",
+     "kind": "FlexCard",
+     "change": "Line item actions moved to a shared action menu.",
+     "risk": "Medium",
+     "advice": "Re-apply custom actions to the new action menu definition."
+    },
+    {
+     "pattern": "cfCpqMultiSite*",
+     "kind": "FlexCard",
+     "change": "Multi-site group screens use the new grid table component.",
+     "risk": "High",
+     "advice": "Custom columns must be re-created as grid column definitions."
+    },
+    {
+     "pattern": "cfCpqMultisite*",
+     "kind": "FlexCard",
+     "change": "Multi-site containers load members page by page.",
+     "risk": "Medium",
+     "advice": "Check custom data sources still pass page size and offset."
+    },
+    {
+     "pattern": "cfESM_SelfService*",
+     "kind": "FlexCard",
+     "change": "Self-service order screens: new styling hooks.",
+     "risk": "Low",
+     "advice": "Check custom CSS overrides render correctly."
+    },
+    {
+     "pattern": "CPQ/PriceLineItems",
+     "kind": "IntegrationProcedure",
+     "change": "Adds pricing context for location-based pricing.",
+     "risk": "Medium",
+     "advice": "If customized, merge the new 'SetLocationContext' step before pricing."
+    },
+    {
+     "pattern": "ESM/CreateSubOrders*",
+     "kind": "IntegrationProcedure",
+     "change": "Sub-order creation supports batching by member.",
+     "risk": "Medium",
+     "advice": "Keep your custom steps; take the new batching inputs from the standard version."
+    },
+    {
+     "pattern": "MultiService/StartCheckoutQuote",
+     "kind": "IntegrationProcedure",
+     "change": "Checkout validation returns structured errors.",
+     "risk": "Low",
+     "advice": "If you parse error messages, switch to the structured error list."
+    },
+    {
+     "pattern": "ESM/GetAllGroups",
+     "kind": "IntegrationProcedure",
+     "change": "Returns group member counts.",
+     "risk": "Low",
+     "advice": "No action unless you post-process the response."
+    },
+    {
+     "pattern": "ESM*",
+     "kind": "OmniScript",
+     "change": "ESM OmniScripts get the new navigation component.",
+     "risk": "Medium",
+     "advice": "Re-check custom step navigation and conditional views."
+    }
+   ]
+  },
+  {
+   "release": "266",
+   "name": "Release 266",
+   "publishedOn": "TBD",
+   "components": [
+    {
+     "pattern": "cfCpqCartSummaryContainer*",
+     "kind": "FlexCard",
+     "change": "Totals block shows one-time and recurring separately.",
+     "risk": "Low",
+     "advice": "Check custom total labels."
+    }
+   ]
+  }
+ ]
+}

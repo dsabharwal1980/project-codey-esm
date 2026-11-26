@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "codey-knowledge": {
+      "command": "node",
+      "args": ["/ABSOLUTE/PATH/TO/project-codey-esm/mcp-server/src/index.js"]
+    },
+    "esm-codey": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "<HOSTED_MCP_URL of EsmCodeyEaseOfBuild>"]
+    }
+  }
+}

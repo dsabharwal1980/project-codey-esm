@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Coworker user</label>
+    <protected>false</protected>
+    <values>
+        <field>Active__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Note__c</field>
+        <value xsi:type="xsd:string">Org-specific: only where the ESM New Experience + Coworker is installed.</value>
+    </values>
+    <values>
+        <field>Permission_Sets__c</field>
+        <value xsi:type="xsd:string">ESM_Working_Cart_Access,ESM_Coworker_Access,ESM_Codey_User</value>
+    </values>
+    <values>
+        <field>User_Type__c</field>
+        <value xsi:type="xsd:string">Coworker user</value>
+    </values>
+</CustomMetadata>

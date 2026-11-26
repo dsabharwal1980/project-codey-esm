@@ -1,0 +1,19 @@
+{
+  "name": "codeyHealthReport",
+  "label": "Codey Health check report",
+  "description": "Project Codey Health check report: each setting OK, Warning or Needs Fix with the reason, a help link and a Fix it button.",
+  "salesforceWidget": "UiWidgetBundle:codeyHealthReport",
+  "lightningType": "LightningTypeBundle:codeyHealthReportResult",
+  "dataSchema": "codey-card.schema.json",
+  "cardType": "health",
+  "layout": [
+    "header (icon, subtitle, title, badge)",
+    "stats",
+    null,
+    "items",
+    "more",
+    "callout",
+    "note",
+    "buttons"
+  ]
+}

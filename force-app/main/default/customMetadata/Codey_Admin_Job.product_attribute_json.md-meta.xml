@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Product Attributes Maintenance (attribut</label>
+    <protected>false</protected>
+    <values>
+        <field>Active__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Arg__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Batch_Size__c</field>
+        <value xsi:type="xsd:double">50</value>
+    </values>
+    <values>
+        <field>Class_Name__c</field>
+        <value xsi:type="xsd:string">vlocity_cmt.UpdateAllProdAttribJSONBatchJob</value>
+    </values>
+    <values>
+        <field>Groups__c</field>
+        <value xsi:type="xsd:string">default,catalog</value>
+    </values>
+    <values>
+        <field>Job_Key__c</field>
+        <value xsi:type="xsd:string">product_attribute_json</value>
+    </values>
+    <values>
+        <field>Label__c</field>
+        <value xsi:type="xsd:string">Product Attributes Maintenance (attribute JSON)</value>
+    </values>
+    <values>
+        <field>Mode__c</field>
+        <value xsi:type="xsd:string">batch</value>
+    </values>
+    <values>
+        <field>Note__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Order__c</field>
+        <value xsi:type="xsd:double">40</value>
+    </values>
+</CustomMetadata>

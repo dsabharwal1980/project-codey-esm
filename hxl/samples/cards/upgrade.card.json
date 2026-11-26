@@ -1,0 +1,44 @@
+{
+  "cardType": "upgrade",
+  "title": "Upgrade impact – release 268",
+  "subtitle": "23 customized screens checked",
+  "icon": "layers",
+  "hasBadge": true,
+  "badgeLabel": "Review before upgrading",
+  "badgeVariant": "error",
+  "hasStats": true,
+  "stats": [
+    {
+      "label": "High",
+      "value": "2"
+    },
+    {
+      "label": "Medium",
+      "value": "3"
+    },
+    {
+      "label": "Low",
+      "value": "1"
+    }
+  ],
+  "hasItems": true,
+  "itemsTitle": "Affected customized screens",
+  "items": [
+    {
+      "icon": "alert-octagon",
+      "iconColor": "error",
+      "title": "cpqConfigureCartLineItems v5",
+      "subtitle": "Cart configurator layout and event names reworked · customized: version 5, author Acme Dev",
+      "value": "FlexCard",
+      "detail": "Compare your copy with the new standard card; move custom fields into the new slots.",
+      "hasBadge": true,
+      "badgeLabel": "High",
+      "badgeVariant": "error",
+      "hasAction": true,
+      "actionLabel": "Suggest merged version",
+      "actionMessage": "Suggest a combined version of the customized FlexCard cpqConfigureCartLineItems v5 for release 268 for my review (do not deploy)."
+    }
+  ],
+  "hasNote": true,
+  "note": "Report only: nothing is changed. A combined version is a suggestion for your review."
+}

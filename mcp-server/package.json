@@ -1,0 +1,18 @@
+{
+  "name": "codey-knowledge-mcp",
+  "version": "1.0.0",
+  "description": "Project Codey ESM knowledge MCP server: playbook, 8 skills, 11 runbooks and 3 knowledge packs as MCP prompts/resources, plus a card renderer (HXL card -> Slack Block Kit / Adaptive Card / Markdown). Org actions run on the Salesforce Hosted MCP server EsmCodeyEaseOfBuild.",
+  "type": "module",
+  "bin": { "codey-knowledge-mcp": "src/index.js" },
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node --test test/*.test.js"
+  },
+  "engines": { "node": ">=18" },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "zod": "^3.25.76"
+  },
+  "license": "UNLICENSED"
+}

@@ -1,0 +1,78 @@
+{
+  "type": "AdaptiveCard",
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.5",
+  "body": [
+    {
+      "type": "TextBlock",
+      "text": "Upgrade impact – release 268",
+      "weight": "Bolder",
+      "size": "Large",
+      "wrap": true
+    },
+    {
+      "type": "TextBlock",
+      "text": "23 customized screens checked",
+      "isSubtle": true,
+      "wrap": true,
+      "spacing": "None"
+    },
+    {
+      "type": "TextBlock",
+      "text": "Review before upgrading",
+      "color": "Attention",
+      "weight": "Bolder"
+    },
+    {
+      "type": "FactSet",
+      "facts": [
+        {
+          "title": "High",
+          "value": "2"
+        },
+        {
+          "title": "Medium",
+          "value": "3"
+        },
+        {
+          "title": "Low",
+          "value": "1"
+        }
+      ]
+    },
+    {
+      "type": "Container",
+      "separator": true,
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "[High] cpqConfigureCartLineItems v5",
+          "weight": "Bolder",
+          "wrap": true
+        },
+        {
+          "type": "TextBlock",
+          "text": "Cart configurator layout and event names reworked · customized: version 5, author Acme Dev",
+          "isSubtle": true,
+          "wrap": true,
+          "spacing": "None"
+        }
+      ],
+      "selectAction": {
+        "type": "Action.Submit",
+        "title": "Suggest merged version",
+        "data": {
+          "codeyMessage": "Suggest a combined version of the customized FlexCard cpqConfigureCartLineItems v5 for release 268 for my review (do not deploy)."
+        }
+      }
+    },
+    {
+      "type": "TextBlock",
+      "text": "Report only: nothing is changed. A combined version is a suggestion for your review.",
+      "isSubtle": true,
+      "wrap": true,
+      "size": "Small"
+    }
+  ],
+  "actions": []
+}

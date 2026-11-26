@@ -1,0 +1,22 @@
+{
+  "title": "Codey Approval tool result",
+  "lightning:type": "lightning__objectType",
+  "unevaluatedProperties": false,
+  "lightning:tags": [
+    "mcp"
+  ],
+  "properties": {
+    "actionName": {
+      "title": "Action",
+      "lightning:type": "lightning__textType"
+    },
+    "isSuccess": {
+      "title": "Success",
+      "lightning:type": "lightning__booleanType"
+    },
+    "outputValues": {
+      "title": "Output",
+      "lightning:type": "c__codeyToolOutputValues"
+    }
+  }
+}

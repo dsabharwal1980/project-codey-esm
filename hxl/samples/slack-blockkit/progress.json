@@ -1,0 +1,69 @@
+{
+  "blocks": [
+    {
+      "type": "header",
+      "text": {
+        "type": "plain_text",
+        "text": "ESM admin jobs"
+      }
+    },
+    {
+      "type": "context",
+      "elements": [
+        {
+          "type": "mrkdwn",
+          "text": "CJ-000012 · started 2026-11-21 10:02 · Product Attribute Cache"
+        },
+        {
+          "type": "mrkdwn",
+          "text": ":information_source: Running"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": "*Progress:* ██████░░░░ 60%"
+      }
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": ":warning: *Manual*  *Clear Managed Platform Cache*\nDo this in CMT Administration"
+      }
+    },
+    {
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": ":white_check_mark: *Completed*  *Product Hierarchy Maintenance*\nFinished (14 batches)."
+      }
+    },
+    {
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": ":information_source: *Running*  *Product Attribute Cache*\nProcessing · 3 of 8 batches"
+      }
+    },
+    {
+      "type": "actions",
+      "elements": [
+        {
+          "type": "button",
+          "text": {
+            "type": "plain_text",
+            "text": "Refresh"
+          },
+          "value": "Show the progress of Codey job CJ-000012.",
+          "action_id": "codey_msg_0"
+        }
+      ]
+    }
+  ]
+}

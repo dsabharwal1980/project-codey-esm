@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>A_ASSET_REFID</label>
+    <protected>false</protected>
+    <values>
+        <field>Active__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Area__c</field>
+        <value xsi:type="xsd:string">AddAssets</value>
+    </values>
+    <values>
+        <field>Fixable__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Help_Url__c</field>
+        <value xsi:type="xsd:string">https://help.salesforce.com/s/articleView?id=ind.comms_add_assets_to_quote.htm&amp;type=5</value>
+    </values>
+    <values>
+        <field>Label__c</field>
+        <value xsi:type="xsd:string">Asset reference ids for parent/root</value>
+    </values>
+    <values>
+        <field>Operator__c</field>
+        <value xsi:type="xsd:string">equals</value>
+    </values>
+    <values>
+        <field>Reason__c</field>
+        <value xsi:type="xsd:string">Adding assets to a quote relies on asset reference ids for the hierarchy.</value>
+    </values>
+    <values>
+        <field>Recommended__c</field>
+        <value xsi:type="xsd:string">true</value>
+    </values>
+    <values>
+        <field>Secret__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>Severity__c</field>
+        <value xsi:type="xsd:string">NeedsFix</value>
+    </values>
+    <values>
+        <field>Source__c</field>
+        <value xsi:type="xsd:string">CpqConfigurationSetup</value>
+    </values>
+    <values>
+        <field>Target__c</field>
+        <value xsi:type="xsd:string">UseAssetReferenceIdForParentAndRoot</value>
+    </values>
+</CustomMetadata>

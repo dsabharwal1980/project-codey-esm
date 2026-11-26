@@ -1,0 +1,120 @@
+{
+  "type": "AdaptiveCard",
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.5",
+  "body": [
+    {
+      "type": "TextBlock",
+      "text": "ESM settings health check",
+      "weight": "Bolder",
+      "size": "Large",
+      "wrap": true
+    },
+    {
+      "type": "TextBlock",
+      "text": "Communications Cloud licence Active · 168 CPQ settings read · Sandbox · scope all",
+      "isSubtle": true,
+      "wrap": true,
+      "spacing": "None"
+    },
+    {
+      "type": "TextBlock",
+      "text": "Needs Fix",
+      "color": "Attention",
+      "weight": "Bolder"
+    },
+    {
+      "type": "FactSet",
+      "facts": [
+        {
+          "title": "OK",
+          "value": "41"
+        },
+        {
+          "title": "Warning",
+          "value": "6"
+        },
+        {
+          "title": "Needs Fix",
+          "value": "2"
+        }
+      ]
+    },
+    {
+      "type": "Container",
+      "separator": true,
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "[Needs Fix] Asset reference ids for parent/root",
+          "weight": "Bolder",
+          "wrap": true
+        },
+        {
+          "type": "TextBlock",
+          "text": "Adding assets to a quote relies on asset reference ids.  Current: false · Recommended: true",
+          "isSubtle": true,
+          "wrap": true,
+          "spacing": "None"
+        }
+      ],
+      "selectAction": {
+        "type": "Action.Submit",
+        "title": "Fix it",
+        "data": {
+          "codeyMessage": "Fix it: preview apply_esm_change changeType=cpqSetting target=UseAssetReferenceIdForParentAndRoot value=true and ask me to approve."
+        }
+      }
+    },
+    {
+      "type": "Container",
+      "separator": true,
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "[Warning] Core logs off",
+          "weight": "Bolder",
+          "wrap": true
+        },
+        {
+          "type": "TextBlock",
+          "text": "Detailed logs slow down every cart call.  Current: true · Recommended: false",
+          "isSubtle": true,
+          "wrap": true,
+          "spacing": "None"
+        }
+      ],
+      "selectAction": {
+        "type": "Action.Submit",
+        "title": "Fix it",
+        "data": {
+          "codeyMessage": "Fix it: preview apply_esm_change changeType=cpqSetting target=EnableCoreLogs value=false and ask me to approve."
+        }
+      }
+    },
+    {
+      "type": "TextBlock",
+      "text": "Read-only check. A fix changes nothing until you approve its preview.",
+      "isSubtle": true,
+      "wrap": true,
+      "size": "Small"
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Submit",
+      "title": "Fix all fixable items",
+      "data": {
+        "codeyMessage": "Preview fixes for all fixable Needs Fix and Warning items from the health check."
+      },
+      "style": "positive"
+    },
+    {
+      "type": "Action.Submit",
+      "title": "Run again",
+      "data": {
+        "codeyMessage": "Run the ESM settings health check again."
+      }
+    }
+  ]
+}

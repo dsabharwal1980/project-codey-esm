@@ -1,0 +1,205 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/project-codey-esm/hxl/codey-card.schema.json",
+  "title": "CodeyCard",
+  "description": "Shared data of the four Project Codey experience screens. cardType: approval | health | progress | upgrade | price | planSteps | basic.",
+  "type": "object",
+  "properties": {
+    "cardType": {
+      "type": "string",
+      "enum": [
+        "approval",
+        "health",
+        "progress",
+        "upgrade",
+        "price",
+        "planSteps",
+        "basic"
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "string"
+    },
+    "hasBadge": {
+      "type": "boolean"
+    },
+    "badgeLabel": {
+      "type": "string"
+    },
+    "badgeVariant": {
+      "type": "string"
+    },
+    "hasStats": {
+      "type": "boolean"
+    },
+    "hasProgress": {
+      "type": "boolean"
+    },
+    "progressLabel": {
+      "type": "string"
+    },
+    "progressValue": {
+      "type": "number"
+    },
+    "progressColor": {
+      "type": "string"
+    },
+    "hasItems": {
+      "type": "boolean"
+    },
+    "itemsTitle": {
+      "type": "string"
+    },
+    "hasMore": {
+      "type": "boolean"
+    },
+    "moreLabel": {
+      "type": "string"
+    },
+    "hasCallout": {
+      "type": "boolean"
+    },
+    "calloutTitle": {
+      "type": "string"
+    },
+    "calloutText": {
+      "type": "string"
+    },
+    "calloutVariant": {
+      "type": "string"
+    },
+    "hasNote": {
+      "type": "boolean"
+    },
+    "note": {
+      "type": "string"
+    },
+    "hasButtons": {
+      "type": "boolean"
+    },
+    "stats": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "detail": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "buttons": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "variant": {
+            "type": "string"
+          },
+          "isLink": {
+            "type": "boolean"
+          },
+          "isMessage": {
+            "type": "boolean"
+          },
+          "url": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "icon": {
+            "type": "string"
+          },
+          "iconColor": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "subtitle": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "detail": {
+            "type": "string"
+          },
+          "hasBar": {
+            "type": "boolean"
+          },
+          "percent": {
+            "type": "number"
+          },
+          "barColor": {
+            "type": "string"
+          },
+          "hasBadge": {
+            "type": "boolean"
+          },
+          "badgeLabel": {
+            "type": "string"
+          },
+          "badgeVariant": {
+            "type": "string"
+          },
+          "hasBefore": {
+            "type": "boolean"
+          },
+          "beforeValue": {
+            "type": "string"
+          },
+          "afterValue": {
+            "type": "string"
+          },
+          "hasAction": {
+            "type": "boolean"
+          },
+          "actionLabel": {
+            "type": "string"
+          },
+          "actionMessage": {
+            "type": "string"
+          },
+          "hasLink": {
+            "type": "boolean"
+          },
+          "linkLabel": {
+            "type": "string"
+          },
+          "linkUrl": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "cardType",
+    "title"
+  ]
+}

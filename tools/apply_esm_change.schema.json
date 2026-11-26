@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "apply_esm_change",
+  "description": "Approved ESM configuration change with Before/After preview and undo. changeType: cpqSetting or enrichQuoteOption (target=setting name, value), generalSetting, pricingPlanStep (fieldsJson name, sequence, implementation, method, parameters, active; recordId to update), contextRule (fieldsJson name, ruleset, product, expression, failureMessage; created inactive), contextRuleset, attributeBinding (Quote Member Binding: attribute, objectClass, fieldApiName), linearRelationship (product, relatedProduct, relationshipType), record (allow-listed ESM objects), undo (target=change log CL-...). ALWAYS mode=preview, show the Approval card, wait for an explicit yes, then mode=commit with previewToken and the same inputs. Never pass secrets (keys) \u2013 they go through the secure Codey Setup page.",
+  "x-apex-class": "CodeyApplyChangeTool",
+  "type": "object",
+  "properties": {
+    "mode": {
+      "type": "string",
+      "description": "preview (default) or commit after the person approved."
+    },
+    "changeType": {
+      "type": "string",
+      "description": "cpqSetting, enrichQuoteOption, generalSetting, pricingPlanStep, contextRule, contextRuleset, attributeBinding, linearRelationship, record or undo."
+    },
+    "target": {
+      "type": "string",
+      "description": "Setting name, object API name (record) or change log CL-... (undo)."
+    },
+    "value": {
+      "type": "string",
+      "description": "New setting value."
+    },
+    "fieldsJson": {
+      "type": "string",
+      "description": "JSON with the fields for record changes."
+    },
+    "recordId": {
+      "type": "string",
+      "description": "Existing record to update."
+    },
+    "reason": {
+      "type": "string",
+      "description": "Why the change is made."
+    },
+    "previewToken": {
+      "type": "string",
+      "description": "Token from the preview, for commit."
+    },
+    "confirmProduction": {
+      "type": "boolean",
+      "description": "true only if the person confirmed a production change."
+    },
+    "surface": {
+      "type": "string",
+      "description": "Where the request comes from."
+    }
+  },
+  "required": [
+    "changeType"
+  ],
+  "x-output": {
+    "success": {
+      "type": "boolean",
+      "description": "True when the request worked."
+    },
+    "message": {
+      "type": "string",
+      "description": "Plain-language result to tell the person."
+    },
+    "previewToken": {
+      "type": "string",
+      "description": "Returned by a preview; pass it back with mode=commit and the same inputs only after the person approved."
+    },
+    "nextStep": {
+      "type": "string",
+      "description": "Suggested next action."
+    },
+    "fix": {
+      "type": "string",
+      "description": "How to resolve a problem when success is false."
+    },
+    "jobId": {
+      "type": "string",
+      "description": "Background job id to track."
+    },
+    "changeLogId": {
+      "type": "string",
+      "description": "Codey Change Log record (audit, undo)."
+    },
+    "resultJson": {
+      "type": "string",
+      "description": "Structured details as JSON."
+    },
+    "card": {
+      "$ref": "../hxl/cards/codey-card.schema.json"
+    }
+  }
+}

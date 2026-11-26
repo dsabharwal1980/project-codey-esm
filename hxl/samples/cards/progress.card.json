@@ -1,0 +1,57 @@
+{
+  "cardType": "progress",
+  "title": "ESM admin jobs",
+  "subtitle": "CJ-000012 · started 2026-11-21 10:02 · Product Attribute Cache",
+  "icon": "activity",
+  "hasBadge": true,
+  "badgeLabel": "Running",
+  "badgeVariant": "info",
+  "hasProgress": true,
+  "progressValue": 60,
+  "progressLabel": "60% done",
+  "progressColor": "primary",
+  "hasItems": true,
+  "itemsTitle": "Steps",
+  "items": [
+    {
+      "icon": "hand",
+      "iconColor": "warning",
+      "title": "Clear Managed Platform Cache",
+      "subtitle": "Do this in CMT Administration",
+      "hasBadge": true,
+      "badgeLabel": "Manual",
+      "badgeVariant": "warning"
+    },
+    {
+      "icon": "check",
+      "iconColor": "success",
+      "title": "Product Hierarchy Maintenance",
+      "subtitle": "Finished (14 batches).",
+      "hasBadge": true,
+      "badgeLabel": "Completed",
+      "badgeVariant": "success",
+      "hasBar": true,
+      "percent": 100
+    },
+    {
+      "icon": "loader",
+      "iconColor": "primary",
+      "title": "Product Attribute Cache",
+      "subtitle": "Processing · 3 of 8 batches",
+      "hasBadge": true,
+      "badgeLabel": "Running",
+      "badgeVariant": "info",
+      "hasBar": true,
+      "percent": 38
+    }
+  ],
+  "hasButtons": true,
+  "buttons": [
+    {
+      "label": "Refresh",
+      "variant": "secondary",
+      "isMessage": true,
+      "message": "Show the progress of Codey job CJ-000012."
+    }
+  ]
+}

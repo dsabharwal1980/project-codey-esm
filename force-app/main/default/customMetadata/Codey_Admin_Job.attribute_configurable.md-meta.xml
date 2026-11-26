@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Update Attribute Configurable</label>
+    <protected>false</protected>
+    <values>
+        <field>Active__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Arg__c</field>
+        <value xsi:type="xsd:string">datetime:epoch</value>
+    </values>
+    <values>
+        <field>Batch_Size__c</field>
+        <value xsi:type="xsd:double">200</value>
+    </values>
+    <values>
+        <field>Class_Name__c</field>
+        <value xsi:type="xsd:string">vlocity_cmt.UpdateAttributeConfigurableBatchJob</value>
+    </values>
+    <values>
+        <field>Groups__c</field>
+        <value xsi:type="xsd:string">default,catalog</value>
+    </values>
+    <values>
+        <field>Job_Key__c</field>
+        <value xsi:type="xsd:string">attribute_configurable</value>
+    </values>
+    <values>
+        <field>Label__c</field>
+        <value xsi:type="xsd:string">Update Attribute Configurable</value>
+    </values>
+    <values>
+        <field>Mode__c</field>
+        <value xsi:type="xsd:string">batch</value>
+    </values>
+    <values>
+        <field>Note__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Order__c</field>
+        <value xsi:type="xsd:double">50</value>
+    </values>
+</CustomMetadata>

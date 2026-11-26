@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<UiWidgetBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>Codey Health check report</masterLabel>
+    <description>Project Codey Health check report: each setting OK, Warning or Needs Fix with the reason, a help link and a Fix it button.</description>
+    <widgetType>JSON</widgetType>
+</UiWidgetBundle>

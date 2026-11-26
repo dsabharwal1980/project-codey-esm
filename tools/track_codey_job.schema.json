@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "track_codey_job",
+  "description": "Read-only progress of a Project Codey background job (admin jobs, bulk member checks): jobId (or CJ-... name), or quoteId / tool for the latest job. Returns status, percent done, each step, plain-language errors, the results file link and whether it can resume, as a Progress tracker card. Check about once a minute while running; do not start a second job.",
+  "x-apex-class": "CodeyTrackJobTool",
+  "type": "object",
+  "properties": {
+    "jobId": {
+      "type": "string",
+      "description": "Codey job id or CJ-... name."
+    },
+    "quoteId": {
+      "type": "string",
+      "description": "Quote Id or name for its latest job."
+    },
+    "tool": {
+      "type": "string",
+      "description": "run_esm_admin_jobs or check_quote_members_bulk."
+    },
+    "surface": {
+      "type": "string",
+      "description": "Where the request comes from."
+    }
+  },
+  "required": [],
+  "x-output": {
+    "success": {
+      "type": "boolean",
+      "description": "True when the request worked."
+    },
+    "message": {
+      "type": "string",
+      "description": "Plain-language result to tell the person."
+    },
+    "previewToken": {
+      "type": "string",
+      "description": "Returned by a preview; pass it back with mode=commit and the same inputs only after the person approved."
+    },
+    "nextStep": {
+      "type": "string",
+      "description": "Suggested next action."
+    },
+    "fix": {
+      "type": "string",
+      "description": "How to resolve a problem when success is false."
+    },
+    "jobId": {
+      "type": "string",
+      "description": "Background job id to track."
+    },
+    "changeLogId": {
+      "type": "string",
+      "description": "Codey Change Log record (audit, undo)."
+    },
+    "resultJson": {
+      "type": "string",
+      "description": "Structured details as JSON."
+    },
+    "card": {
+      "$ref": "../hxl/cards/codey-card.schema.json"
+    }
+  }
+}

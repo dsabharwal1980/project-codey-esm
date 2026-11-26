@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "check_esm_upgrade_impact",
+  "description": "Read-only upgrade check: which customized ESM screens and procedures (FlexCards, OmniScripts, Integration Procedures) a release affects (targetRelease, default newest in the release change list), what changed, a risk level (High / Medium / Low) and a suggested action, as an Upgrade impact report card. includeStandard=true also lists components that are not customized. Reports only; a combined (merged) version is a suggestion for review and is never deployed without approval.",
+  "x-apex-class": "CodeyUpgradeImpactTool",
+  "type": "object",
+  "properties": {
+    "targetRelease": {
+      "type": "string",
+      "description": "Release, for example 268 (default newest)."
+    },
+    "includeStandard": {
+      "type": "boolean",
+      "description": "true to also list non-customized components."
+    },
+    "surface": {
+      "type": "string",
+      "description": "Where the request comes from."
+    }
+  },
+  "required": [],
+  "x-output": {
+    "success": {
+      "type": "boolean",
+      "description": "True when the request worked."
+    },
+    "message": {
+      "type": "string",
+      "description": "Plain-language result to tell the person."
+    },
+    "previewToken": {
+      "type": "string",
+      "description": "Returned by a preview; pass it back with mode=commit and the same inputs only after the person approved."
+    },
+    "nextStep": {
+      "type": "string",
+      "description": "Suggested next action."
+    },
+    "fix": {
+      "type": "string",
+      "description": "How to resolve a problem when success is false."
+    },
+    "jobId": {
+      "type": "string",
+      "description": "Background job id to track."
+    },
+    "changeLogId": {
+      "type": "string",
+      "description": "Codey Change Log record (audit, undo)."
+    },
+    "resultJson": {
+      "type": "string",
+      "description": "Structured details as JSON."
+    },
+    "card": {
+      "$ref": "../hxl/cards/codey-card.schema.json"
+    }
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "manage_esm_permissions",
+  "description": "Give ESM users the recommended permission sets for their user type (Sales rep, Sales manager, Admin, Pricing admin, Product designer, Service agent, Coworker user). Inputs: userType, users (usernames, e-mails, names or Ids) or profile / role. ALWAYS mode=preview first: the Approval card lists per user what is missing. Only after the person explicitly approves, call mode=commit with the previewToken and the same inputs. Only adds, never removes. Production orgs also need confirmProduction=true after the person confirms.",
+  "x-apex-class": "CodeyPermissionsTool",
+  "type": "object",
+  "properties": {
+    "mode": {
+      "type": "string",
+      "description": "preview (default) or commit after the person approved."
+    },
+    "userType": {
+      "type": "string",
+      "description": "Sales rep, Sales manager, Admin, Pricing admin, Product designer, Service agent or Coworker user."
+    },
+    "users": {
+      "type": "string",
+      "description": "Comma-separated usernames, e-mails, names or Ids."
+    },
+    "profile": {
+      "type": "string",
+      "description": "Profile name."
+    },
+    "role": {
+      "type": "string",
+      "description": "Role name."
+    },
+    "previewToken": {
+      "type": "string",
+      "description": "Token from the preview, for commit."
+    },
+    "confirmProduction": {
+      "type": "boolean",
+      "description": "true only if the person confirmed a production change."
+    },
+    "surface": {
+      "type": "string",
+      "description": "Where the request comes from."
+    }
+  },
+  "required": [
+    "userType"
+  ],
+  "x-output": {
+    "success": {
+      "type": "boolean",
+      "description": "True when the request worked."
+    },
+    "message": {
+      "type": "string",
+      "description": "Plain-language result to tell the person."
+    },
+    "previewToken": {
+      "type": "string",
+      "description": "Returned by a preview; pass it back with mode=commit and the same inputs only after the person approved."
+    },
+    "nextStep": {
+      "type": "string",
+      "description": "Suggested next action."
+    },
+    "fix": {
+      "type": "string",
+      "description": "How to resolve a problem when success is false."
+    },
+    "jobId": {
+      "type": "string",
+      "description": "Background job id to track."
+    },
+    "changeLogId": {
+      "type": "string",
+      "description": "Codey Change Log record (audit, undo)."
+    },
+    "resultJson": {
+      "type": "string",
+      "description": "Structured details as JSON."
+    },
+    "card": {
+      "$ref": "../hxl/cards/codey-card.schema.json"
+    }
+  }
+}

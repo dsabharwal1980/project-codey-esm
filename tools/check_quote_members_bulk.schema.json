@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "check_quote_members_bulk",
+  "description": "Load many quote members from a spreadsheet and check addresses and serviceability in the background (10,000+ members, batches, retries, resume). Inputs: quoteId (Id or name), membersCsv (header row: name/site, street/address, city, state, postal code/zip, country \u2013 read the attached spreadsheet and pass its rows) or contentDocumentId (069...), checks (address, serviceability; none to only load). ALWAYS mode=preview first (columns, rows to load, duplicates, rows with errors); after the person approves, mode=commit with previewToken and same inputs. Then track_codey_job; when done share the results file.",
+  "x-apex-class": "CodeyBulkCheckTool",
+  "type": "object",
+  "properties": {
+    "mode": {
+      "type": "string",
+      "description": "preview (default), commit after approval, or status."
+    },
+    "quoteId": {
+      "type": "string",
+      "description": "Enterprise Quote Id or name."
+    },
+    "membersCsv": {
+      "type": "string",
+      "description": "CSV text with a header row (name/site, street/address, city, state, postal code, country)."
+    },
+    "contentDocumentId": {
+      "type": "string",
+      "description": "ContentDocument Id (069...) of an attached CSV."
+    },
+    "checks": {
+      "type": "string",
+      "description": "address, serviceability, or none."
+    },
+    "onlyUnchecked": {
+      "type": "boolean",
+      "description": "false to re-check every member."
+    },
+    "jobId": {
+      "type": "string",
+      "description": "Codey job id for status or resume."
+    },
+    "previewToken": {
+      "type": "string",
+      "description": "Token from the preview, for commit."
+    },
+    "confirmProduction": {
+      "type": "boolean",
+      "description": "true only if the person confirmed in production."
+    },
+    "surface": {
+      "type": "string",
+      "description": "Where the request comes from."
+    }
+  },
+  "required": [
+    "quoteId"
+  ],
+  "x-output": {
+    "success": {
+      "type": "boolean",
+      "description": "True when the request worked."
+    },
+    "message": {
+      "type": "string",
+      "description": "Plain-language result to tell the person."
+    },
+    "previewToken": {
+      "type": "string",
+      "description": "Returned by a preview; pass it back with mode=commit and the same inputs only after the person approved."
+    },
+    "nextStep": {
+      "type": "string",
+      "description": "Suggested next action."
+    },
+    "fix": {
+      "type": "string",
+      "description": "How to resolve a problem when success is false."
+    },
+    "jobId": {
+      "type": "string",
+      "description": "Background job id to track."
+    },
+    "changeLogId": {
+      "type": "string",
+      "description": "Codey Change Log record (audit, undo)."
+    },
+    "resultJson": {
+      "type": "string",
+      "description": "Structured details as JSON."
+    },
+    "card": {
+      "$ref": "../hxl/cards/codey-card.schema.json"
+    }
+  }
+}

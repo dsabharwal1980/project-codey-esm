@@ -1,0 +1,36 @@
+{
+  "renderer": {
+    "componentOverrides": {
+      "$": {
+        "definition": "@widget/c/codeyUpgradeImpact",
+        "attributes": {
+          "badgeLabel": "{!$attrs.outputValues.card.badgeLabel}",
+          "badgeVariant": "{!$attrs.outputValues.card.badgeVariant}",
+          "buttons": "{!$attrs.outputValues.card.buttons}",
+          "calloutText": "{!$attrs.outputValues.card.calloutText}",
+          "calloutTitle": "{!$attrs.outputValues.card.calloutTitle}",
+          "calloutVariant": "{!$attrs.outputValues.card.calloutVariant}",
+          "hasBadge": "{!$attrs.outputValues.card.hasBadge}",
+          "hasButtons": "{!$attrs.outputValues.card.hasButtons}",
+          "hasCallout": "{!$attrs.outputValues.card.hasCallout}",
+          "hasItems": "{!$attrs.outputValues.card.hasItems}",
+          "hasMore": "{!$attrs.outputValues.card.hasMore}",
+          "hasNote": "{!$attrs.outputValues.card.hasNote}",
+          "hasProgress": "{!$attrs.outputValues.card.hasProgress}",
+          "hasStats": "{!$attrs.outputValues.card.hasStats}",
+          "icon": "{!$attrs.outputValues.card.icon}",
+          "items": "{!$attrs.outputValues.card.items}",
+          "itemsTitle": "{!$attrs.outputValues.card.itemsTitle}",
+          "moreLabel": "{!$attrs.outputValues.card.moreLabel}",
+          "note": "{!$attrs.outputValues.card.note}",
+          "progressColor": "{!$attrs.outputValues.card.progressColor}",
+          "progressLabel": "{!$attrs.outputValues.card.progressLabel}",
+          "progressValue": "{!$attrs.outputValues.card.progressValue}",
+          "stats": "{!$attrs.outputValues.card.stats}",
+          "subtitle": "{!$attrs.outputValues.card.subtitle}",
+          "title": "{!$attrs.outputValues.card.title}"
+        }
+      }
+    }
+  }
+}

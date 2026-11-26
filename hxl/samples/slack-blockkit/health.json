@@ -1,0 +1,109 @@
+{
+  "blocks": [
+    {
+      "type": "header",
+      "text": {
+        "type": "plain_text",
+        "text": "ESM settings health check"
+      }
+    },
+    {
+      "type": "context",
+      "elements": [
+        {
+          "type": "mrkdwn",
+          "text": "Communications Cloud licence Active · 168 CPQ settings read · Sandbox · scope all"
+        },
+        {
+          "type": "mrkdwn",
+          "text": ":x: Needs Fix"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "fields": [
+        {
+          "type": "mrkdwn",
+          "text": "*OK*\n41"
+        },
+        {
+          "type": "mrkdwn",
+          "text": "*Warning*\n6"
+        },
+        {
+          "type": "mrkdwn",
+          "text": "*Needs Fix*\n2"
+        }
+      ]
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": ":x: *Needs Fix*  *Asset reference ids for parent/root*\nAdding assets to a quote relies on asset reference ids.  Current: false · Recommended: true  _AddAssets_"
+      },
+      "accessory": {
+        "type": "button",
+        "text": {
+          "type": "plain_text",
+          "text": "Fix it"
+        },
+        "value": "Fix it: preview apply_esm_change changeType=cpqSetting target=UseAssetReferenceIdForParentAndRoot value=true and ask me to approve.",
+        "action_id": "codey_item_action"
+      }
+    },
+    {
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": ":warning: *Warning*  *Core logs off*\nDetailed logs slow down every cart call.  Current: true · Recommended: false  _Performance_"
+      },
+      "accessory": {
+        "type": "button",
+        "text": {
+          "type": "plain_text",
+          "text": "Fix it"
+        },
+        "value": "Fix it: preview apply_esm_change changeType=cpqSetting target=EnableCoreLogs value=false and ask me to approve.",
+        "action_id": "codey_item_action"
+      }
+    },
+    {
+      "type": "context",
+      "elements": [
+        {
+          "type": "mrkdwn",
+          "text": "Read-only check. A fix changes nothing until you approve its preview."
+        }
+      ]
+    },
+    {
+      "type": "actions",
+      "elements": [
+        {
+          "type": "button",
+          "text": {
+            "type": "plain_text",
+            "text": "Fix all fixable items"
+          },
+          "value": "Preview fixes for all fixable Needs Fix and Warning items from the health check.",
+          "action_id": "codey_msg_0",
+          "style": "primary"
+        },
+        {
+          "type": "button",
+          "text": {
+            "type": "plain_text",
+            "text": "Run again"
+          },
+          "value": "Run the ESM settings health check again.",
+          "action_id": "codey_msg_1"
+        }
+      ]
+    }
+  ]
+}

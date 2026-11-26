@@ -1,0 +1,100 @@
+
+## data-model
+**Enterprise Quote (EQ)** – a standard Quote with the `EnterpriseQuote` record type. It holds the commercial offer for a
+multi-site customer. **Quote Members** (`vlocity_cmt__QuoteMember__c`) are the sites/locations (premises, service points,
+service or subscriber accounts) on the quote. **Quote Groups** (`vlocity_cmt__QuoteGroup__c`) bundle members that get the
+same offer (for example "Retail stores – Fibre"). **Quote line items (QLI)** are the products: a group-level line is configured
+once and applies to every member of the group; member-level lines belong to one member. The **working cart** is a temporary
+cart used to configure and price a group/members before the result is applied back to the EQ.
+**Enterprise Order (EO)** – the Order with the `EnterpriseOrder` record type created from an accepted EQ; it is split into
+**sub-orders** per member/group for fulfilment (Create Final Orders), via the configured sub-order procedures.
+Flow: `Account → Opportunity → Enterprise Quote → Quote Members + Groups → Lines (working cart) → Price/Validate → Proposal → Enterprise Order → Sub-orders`.
+Help: https://help.salesforce.com/s/articleView?id=ind.comms_t_customize_your_enterprise_sales_management_implementation_63687.htm&type=5
+
+## quote-member-vs-line-item
+A **Quote Member** answers *where* (a site/location, with address, serviceability and its group). A **quote line item**
+answers *what* (the product, attributes, quantity and price). One member can have many lines; a group-level line covers all
+members in that group without copying a line per member until orders are created. Example to give from the org: "Quote
+<name> has <n> members in <n> groups and <n> lines; group <g> line <offer> applies to its <n> members."
+
+## enterprise-order
+The EO mirrors the EQ: members become order members, group lines become order lines per member when sub-orders are created.
+Changes after ordering go through MACD (move/add/change/disconnect) on assets, not by editing the EQ.
+
+## pricing-plan
+A **pricing plan** is an ordered list of **pricing plan steps** (`vlocity_cmt__PricingPlanStep__c`, by Sequence). Each step
+calls an implementation and method, e.g.: Initialize Pricing Context → Load Price List Entries → Initialize Pricing Variables →
+Apply Context Discounts → Apply Offer Adjustments → Apply Promotion Adjustments → Apply Charge Manual Adjustments → Calculate
+Rollups → Load Margin Ranges → Save Line Items → Apply Parent Variables. The plan used is the CPQ setting `DefaultPricingPlan`.
+A new step (for example a regional surcharge) is a new step record with a sequence between existing ones, an implementation
+(`DefaultPricingPlanImplementation` or a custom class implementing the pricing plan step interface) and parameters.
+Always test on a sample quote; caches may need the pricing admin jobs.
+
+## attribute-pricing
+**Attribute-based pricing** sets prices by product attribute values (e.g. bandwidth = 1 Gbps) using attribute pricing matrices
+/ calculation matrices and price list entries with attribute conditions. Change the matrix rows, version them, then re-price
+the sample.
+
+## location-pricing
+**Location-based pricing** prices by the member's location (region, postal code, distance). It uses custom quote fields for
+location, a pricing matrix keyed on those fields, and Integration Procedures that pass the location to pricing.
+Help: https://help.salesforce.com/s/articleView?id=ind.comms_t_set_pricing_for_locations_58428.htm&type=5 ·
+https://help.salesforce.com/s/articleView?id=ind.comms_t_create_custom_quote_fields_for_location_58559.htm&type=5 ·
+https://help.salesforce.com/s/articleView?id=ind.comms_t_modify_integration_procedures_for_location_based_pricing_58583.htm&type=5
+
+## frame-contract-pricing
+A **frame contract** (frame agreement) fixes negotiated prices/discounts for an account for a period. Quotes for that account
+pick up the contract's discounts (`ContractVersionDiscountPricing`, contract line items) during pricing before promotions and
+manual adjustments.
+
+## promotions-vs-discounts
+| | Promotion | Discount |
+|---|---|---|
+| What | Catalog-defined offer (`vlocity_cmt__Promotion__c`) with eligibility, duration and price alterations | An ad-hoc or account/contract price reduction on the quote/order (`QuoteDiscount`, `OrderDiscount`, manual adjustments) |
+| Where applied | In the working cart / cart, to eligible items (applied promotions on the quote) | On the Enterprise Quote or Enterprise Order, at quote/group/line level, may need approval |
+| Pricing step | Apply Promotion Adjustments | Apply Context Discounts / Apply Charge Manual Adjustments |
+| Carries to order | Yes, as applied promotions | Yes, copied to the EO |
+Example: "On quote <name>, promotion <p> took <x>/month off <offer>; discount <d> (awaiting approval) would take <y>."
+
+## linear-relationships
+**Linear relationships** connect products along a lifecycle line (upgrade/downgrade/replace paths, e.g. 100 Mbps → 500 Mbps →
+1 Gbps) using product relationship records (`vlocity_cmt__ProductRelationship__c`, relationship type) so MACD and replace
+offer flows know which product can follow which. Common scenarios: upgrade path, replace offer, migrate bundle.
+Help: https://help.salesforce.com/s/articleView?id=ind.comms_t_linear_relationships_between_products_in_enterprise_salesmanagement_57023.htm&type=5 ·
+https://help.salesforce.com/s/articleView?id=ind.media_slm_b2b_manage_linear_relationships.htm&type=5
+
+## quote-member-binding
+**Quote Member Binding (QMB)** copies values from the quote member (e.g. access technology, max speed, region) into product
+attributes of the lines for that member, via attribute binding records (`vlocity_cmt__AttributeBinding__c`: attribute, object
+class, field API name). Use it so products are configured from site data instead of by hand.
+Help: https://help.salesforce.com/s/articleView?id=ind.comms_apply_product_attributes_with_quote_member_binding.htm&type=5
+
+## context-rules
+**Context rules** decide eligibility/availability of products using context (e.g. the member's region or technology).
+A ruleset (`vlocity_cmt__ContextRuleset__c`) holds rules (`vlocity_cmt__ContextRule__c`) with an expression on context
+dimensions, linked to a product. Requires CPQ setting `ContextRulesEnabled = True`; caches (`ContextRulesCacheMode`) and
+the context eligibility admin jobs may need refreshing.
+Help: https://help.salesforce.com/s/articleView?id=ind.comms_create_and_enable_context_rules_for_products_on_quote_members_in_enterprise_sales_management.htm&type=5
+
+## enrich-quote
+**Enrich Quote** options control what the Enrich step offers (e.g. add assets, move, change of plan, bulk attribute update).
+They are configured through CPQ configuration settings and the Enrich Quote OmniScript/FlexCard options.
+Help: https://help.salesforce.com/s/articleView?id=ind.comms_t_customize_the_enrich_quote_options_57749.htm&type=5
+
+## address-serviceability
+**Address verification** validates each member's address (result on the member: Valid / Partial / Invalid + message).
+**Serviceability** checks which technologies and speeds are available at the site (serviceability data, max download/upload
+speed, connection type). In ESM these run through Integration Procedures (`ESM_checkAddressValidation`,
+`ESM_checkServiceQualificationV2`) calling the customer's address/qualification services. For thousands of members they must
+run in background batches.
+
+## admin-jobs
+Admin (maintenance) jobs rebuild CMT caches and generated data after catalog/pricing changes: product hierarchy, product
+attribute JSON, attribute caches, product versions, promotion expiration, attribute configurable flags, platform cache and
+pricebook refresh. ESM does not work properly until they run after a load or catalog change.
+Help: https://help.salesforce.com/s/articleView?id=ind.comms_run_maintenance_jobs.htm&type=5
+
+## console
+ESM Console settings: enhanced event handling and app visibility by profile.
+Help: https://help.salesforce.com/s/articleView?id=ind.comms_esm_enable_enhanced_event_handling.htm&type=5 ·
+https://help.salesforce.com/s/articleView?id=ind.comms_esm_enable_app_visibility_profile.htm&type=5

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Sales rep</label>
+    <protected>false</protected>
+    <values>
+        <field>Active__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Note__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Permission_Sets__c</field>
+        <value xsi:type="xsd:string">ESM_Runtime,vlocity_cmt.CommunicationsCloudRuntime,CPQ_Runtime_CPQCartUI,CPQ_Runtime_CartOperations,CPQ_Runtime_ViewAndApplyDiscounts,ESM_Codey_User</value>
+    </values>
+    <values>
+        <field>User_Type__c</field>
+        <value xsi:type="xsd:string">Sales rep</value>
+    </values>
+</CustomMetadata>

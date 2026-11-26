@@ -1,0 +1,67 @@
+<template>
+    <article class="slds-card">
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__body">
+                    <p class="slds-text-body_small slds-text-color_weak">{c.subtitle}</p>
+                    <h2 class="slds-card__header-title">{c.title}</h2>
+                </div>
+            </header>
+            <template lwc:if={c.hasBadge}><span class={badgeClass}>{c.badgeLabel}</span></template>
+        </div>
+        <div class="slds-card__body slds-card__body_inner">
+            <template lwc:if={c.hasStats}>
+                <div class="slds-grid slds-gutters slds-m-bottom_small">
+                    <template for:each={stats} for:item="s">
+                        <div key={s.key} class="slds-col">
+                            <p class="slds-text-body_small slds-text-color_weak">{s.label}</p>
+                            <p class="slds-text-heading_medium">{s.value}</p>
+                        </div>
+                    </template>
+                </div>
+            </template>
+            <template lwc:if={c.hasProgress}>
+                <lightning-progress-bar value={c.progressValue} size="large"></lightning-progress-bar>
+                <p class="slds-text-body_small slds-m-bottom_small">{c.progressLabel}</p>
+            </template>
+            <template lwc:if={c.hasItems}>
+                <h3 class="slds-text-heading_small slds-m-bottom_x-small">{c.itemsTitle}</h3>
+                <ul class="slds-has-dividers_bottom-space">
+                    <template for:each={items} for:item="it">
+                        <li key={it.key} class="slds-item">
+                            <div class="slds-grid slds-grid_vertical-align-center">
+                                <lightning-icon icon-name={it.iconName} size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                                <div class="slds-col">
+                                    <p class="slds-text-title_bold">{it.title}</p>
+                                    <p class="slds-text-body_small slds-text-color_weak">{it.subtitle}</p>
+                                </div>
+                                <div class="slds-text-align_right slds-m-horizontal_small">
+                                    <p class="slds-text-body_small">{it.value}</p>
+                                    <p class="slds-text-body_small slds-text-color_weak">{it.detail}</p>
+                                </div>
+                                <template lwc:if={it.hasBadge}><span class={it.badgeClass}>{it.badgeLabel}</span></template>
+                            </div>
+                            <template lwc:if={it.hasBar}><lightning-progress-bar value={it.percent} size="small"></lightning-progress-bar></template>
+                            <div class="slds-m-top_xx-small">
+                                <template lwc:if={it.hasAction}><lightning-button label={it.actionLabel} data-message={it.actionMessage} onclick={handleAction} variant="neutral" class="slds-m-right_x-small"></lightning-button></template>
+                                <template lwc:if={it.hasLink}><lightning-button label={it.linkLabel} data-url={it.linkUrl} onclick={handleAction} variant="base"></lightning-button></template>
+                            </div>
+                        </li>
+                    </template>
+                </ul>
+                <template lwc:if={c.hasMore}><p class="slds-text-body_small slds-text-color_weak">{c.moreLabel}</p></template>
+            </template>
+            <template lwc:if={c.hasCallout}>
+                <div class={calloutClass} role="status"><div class="slds-media__body"><p><strong>{c.calloutTitle}</strong> {c.calloutText}</p></div></div>
+            </template>
+            <template lwc:if={c.hasNote}><p class="slds-text-body_small slds-text-color_weak slds-m-top_small">{c.note}</p></template>
+        </div>
+        <template lwc:if={c.hasButtons}>
+            <footer class="slds-card__footer slds-text-align_right">
+                <template for:each={buttons} for:item="b">
+                    <lightning-button key={b.key} label={b.label} variant={b.brand} data-message={b.message} data-url={b.url} onclick={handleAction} class="slds-m-left_x-small"></lightning-button>
+                </template>
+            </footer>
+        </template>
+    </article>
+</template>
