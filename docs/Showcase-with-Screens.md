@@ -13,6 +13,8 @@ no changes to ESM settings, quotes or permissions. Each request added one usage 
 | 6 | Coworker – price plan explained | same | Pricing |
 | 7 | Coworker – upgrade check | same | Upgrade check |
 | 8 | Coworker – concept question (finding) | same | Concepts guide |
+| 9 | Agentforce Coworker (Lightning header → **Ask**) – the question and its route | `/lightning/coworker` | Settings health check |
+| 10 | Agentforce Coworker – the answer | same | Settings health check |
 
 ---
 
@@ -69,6 +71,33 @@ The same question asked to the **ESM Codey** agent and to the Codey tools return
 about ESM concepts to the Codey build helper before the existing explain rule (new Coworker version; v33 stays for rollback).
 
 ![Coworker – concept question answered without Codey (finding)](screens/08-coworker-concept.png)
+
+## 9. Agentforce Coworker (Lightning header → Ask) – "Check if my Enterprise Sales Management setup is correct – only the add assets to quote settings."
+The Salesforce Coworker opened from **Ask** in the Lightning header. It first looked for a matching **skill** ("Listed skills – 0
+results": no Coworker skills exist in this org yet), searched Salesforce, then **delegated to the ESM Coworker agent**, whose Codey
+build helper ran the settings check (Change Log: `check_esm_setup · scope assets · Coworker`).
+
+![Agentforce Coworker – question, skill lookup and delegation](screens/11-agentforce-coworker-before-skills.png)
+
+## 10. Agentforce Coworker – the answer
+"Your Add Assets to Quote settings are all correctly configured… Asset reference IDs, MACD line action status, Asset price retention
+— set as recommended. No action needed."
+
+![Agentforce Coworker – answer from the Codey check](screens/12-agentforce-coworker-answer.png)
+
+### Making the Codey skills first-class Coworker skills (not done yet – it adds records)
+Agentforce Coworker has a **Skills** library (Agentforce Studio → Skills → New). A Coworker skill has exactly the parts of a Codey skill:
+
+| Coworker skill field | Filled from the Codey skill |
+|---|---|
+| Skill name | e.g. "ESM settings health check" |
+| Description ("so your agent can find and use it") | the `description` line of `skills/<name>/SKILL.md` |
+| Target agent | **ESM Codey** (or Any Agent) |
+| API name | `esm_settings_health_check` … |
+| Instructions (with **@** resources) | the steps of the SKILL.md, with the Codey actions inserted as resources (`@check_esm_setup`, `@apply_esm_change`, …) |
+
+With the 8 skills added, Coworker would pick the Codey skill directly ("Listed skills → 1 result") instead of searching and
+delegating, and the same skills would appear in **Browse** for every user. This is 8 new AI Skill records, so it needs your go-ahead.
 
 ---
 
